@@ -1,0 +1,11 @@
+{
+  "name": "menu-online-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Thiago-Mariotto/menu-online-api.git",
+  "author": "",
+  "scripts": {
+    "commit": "git-cz"
+  },
+  "license": "MIT"
+}
