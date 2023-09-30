@@ -26,5 +26,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "pg": "^8.11.3",
+    "prisma": "^5.3.1"
   }
 }
