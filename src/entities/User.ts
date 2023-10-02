@@ -109,15 +109,3 @@ export default class User {
     this._authenticableUser.active = active;
   }
 }
-
-const user = new UserBuilder('88.495.051/0001-82')
-  .setAddressId('123')
-  .setEmail('jonh@mail.com')
-  .setName('Jon')
-  .setPassword('123Abdrc#')
-  .setPhone('123')
-  .build();
-
-// console.log(user);
-
-console.log(user.email);
