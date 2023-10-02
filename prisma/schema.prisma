@@ -9,3 +9,52 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model State {
+  stateId String @id @default(uuid())
+  name    String @db.VarChar(100)
+  uf      String @db.VarChar(2)
+  City    City[]
+}
+
+model City {
+  cityId   String     @id @default(uuid())
+  name     String     @db.VarChar(100)
+  District District[]
+  State    State      @relation(fields: [stateId], references: [stateId])
+  stateId  String
+}
+
+model District {
+  districtId String    @id @default(uuid())
+  name       String    @db.VarChar(100)
+  Address    Address[]
+  City       City      @relation(fields: [cityId], references: [cityId])
+  cityId     String
+}
+
+model Address {
+  addressId  String   @id @default(uuid())
+  cep        String   @db.VarChar(10)
+  street     String   @db.VarChar(100)
+  number     String   @db.VarChar(10)
+  complement String   @db.VarChar(100)
+  User       User[]
+  District   District @relation(fields: [districtId], references: [districtId])
+  districtId String
+}
+
+model User {
+  userId    String   @id @default(uuid())
+  email     String   @unique @db.VarChar(100)
+  name      String   @db.VarChar(100)
+  password  String   @db.VarChar(100)
+  cnpj      String   @unique @db.VarChar(20)
+  role      String   @default("user") @db.VarChar(10)
+  phone     String   @db.VarChar(20)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+  address   Address  @relation(fields: [addressId], references: [addressId])
+  addressId String
+}
