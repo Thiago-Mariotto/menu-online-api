@@ -73,15 +73,15 @@ export default class User {
     return this._authenticableUser.active;
   }
 
-  public setPhone(phone: string): void {
+  set phone(phone: string) {
     this._phone = phone;
   }
 
-  public setAddressId(addressId: string): void {
+  set addressId(addressId: string) {
     this._addressId = addressId;
   }
 
-  public setCnpj(cnpj: string): void {
+  set cnpj(cnpj: string) {
     this._cnpj = CNPJ.fromString(cnpj);
   }
 
