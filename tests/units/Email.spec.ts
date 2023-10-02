@@ -1,4 +1,4 @@
-import Email from '../../src/entities/valuesObject/Email';
+import Email from '../../src/entities/valueObjects/Email';
 
 describe('# Unit - ValueObjects => Email', function () {
   test('should create a valid Email', function () {
