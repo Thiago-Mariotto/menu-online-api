@@ -16,32 +16,27 @@ export default class UserBuilder {
     this.cnpj = CNPJ.fromString(cnpj);
   }
 
-  setName(name: string): UserBuilder {
+  setName(name: string) {
     this.name = Name.fromString(name);
     return this;
   }
 
-  setEmail(email: string): UserBuilder {
+  setEmail(email: string) {
     this.email = Email.fromString(email);
     return this;
   }
 
-  setPassword(password: string): UserBuilder {
+  setPassword(password: string) {
     this.password = Password.fromString(password);
     return this;
   }
 
-  setCnpj(cnpj: string): UserBuilder {
-    this.cnpj = CNPJ.fromString(cnpj);
-    return this;
-  }
-
-  setPhone(phone: string): UserBuilder {
+  setPhone(phone: string) {
     this.phone = phone;
     return this;
   }
 
-  setAddressId(addressId: string): UserBuilder {
+  setAddressId(addressId: string) {
     this.addressId = addressId;
     return this;
   }
