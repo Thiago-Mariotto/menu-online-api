@@ -1,11 +1,11 @@
-import Name from './valueObjects/Name';
+import CategoryName from './valueObjects/CategoryName';
 
 export default class Category {
   private _id?: string;
-  private _name: Name;
+  private _name: CategoryName;
 
   constructor(name: string) {
-    this._name = Name.fromString(name);
+    this._name = CategoryName.fromString(name);
   }
 
   get id(): string | undefined {
@@ -16,7 +16,7 @@ export default class Category {
     this._id = id;
   }
 
-  get name(): Name {
+  get name(): CategoryName {
     return this._name;
   }
 }
