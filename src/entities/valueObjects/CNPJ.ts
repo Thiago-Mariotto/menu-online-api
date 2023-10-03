@@ -15,10 +15,7 @@ export default class CNPJ {
     }
 
     const newCnpj = new CNPJ(value);
-
-    if (!newCnpj.isValid()) {
-      throw new Error('Invalid CNPJ');
-    }
+    newCnpj.isValid();
 
     return new CNPJ(value);
   }
