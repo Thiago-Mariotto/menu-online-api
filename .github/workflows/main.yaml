@@ -2,23 +2,25 @@ name: Check Unit & Integration Tests
 
 on:
   push:
-
-env:
-  REPOSITORY: students-crm
-
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+    
 jobs:
   Jest: 
     runs-on: ubuntu-latest
-   
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-
+          node-version: ${{ matrix.node-version }}
+        
       - name: Install Dependencies
-        run: npm ci
+        run: npm cache clean --force && npm install
 
       - name: Run All tests
         run: npm test
