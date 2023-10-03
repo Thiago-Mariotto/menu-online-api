@@ -14,7 +14,6 @@ export default class User {
   private _phone: string;
   private _cnpj: CNPJ;
   private _createdAt: Date;
-  private _lastLogin: Date;
 
   constructor(builder: UserBuilder) {
     this._name = builder.name;
@@ -24,13 +23,17 @@ export default class User {
     this._authenticableUser = new AuthenticatableUser(builder);
     this._role = 'user';
     this._createdAt = new Date();
-    this._lastLogin = new Date();
   }
 
   get id(): string | undefined {
+    return this._id;
+  }
+
+  set id(id: string | undefined) {
     if (this._id) {
-      return this._id;
+      return;
     }
+    this._id = id;
   }
 
   get name(): Name {
@@ -66,7 +69,7 @@ export default class User {
   }
 
   get lastLogin(): Date {
-    return this._lastLogin;
+    return this._authenticableUser.lastLogin;
   }
 
   get active(): boolean {
@@ -79,10 +82,6 @@ export default class User {
 
   set addressId(addressId: string) {
     this._addressId = addressId;
-  }
-
-  set cnpj(cnpj: string) {
-    this._cnpj = CNPJ.fromString(cnpj);
   }
 
   set role(role: string) {
