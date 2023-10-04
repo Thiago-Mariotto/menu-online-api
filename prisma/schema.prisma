@@ -10,51 +10,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model State {
-  stateId String @id @default(uuid()) @map("state_id")
-  name    String @db.VarChar(100)
-  uf      String @db.VarChar(2)
-  City    City[]
+model StateModel {
+  stateId String      @id @default(uuid()) @map("state_id")
+  name    String      @db.VarChar(100)
+  uf      String      @db.VarChar(2)
+  City    CityModel[]
 }
 
-model City {
-  cityId   String     @id @default(uuid()) @map("city_id")
-  name     String     @db.VarChar(100)
-  District District[]
-  State    State      @relation(fields: [stateId], references: [stateId])
-  stateId  String     @map("state_id")
+model CityModel {
+  cityId   String          @id @default(uuid()) @map("city_id")
+  name     String          @db.VarChar(100)
+  District DistrictModel[]
+  State    StateModel      @relation(fields: [stateId], references: [stateId])
+  stateId  String          @map("state_id")
 }
 
-model District {
-  districtId String    @id @default(uuid()) @map("district_id")
-  name       String    @db.VarChar(100)
-  Address    Address[]
-  City       City      @relation(fields: [cityId], references: [cityId])
-  cityId     String    @map("city_id")
+model DistrictModel {
+  districtId String         @id @default(uuid()) @map("district_id")
+  name       String         @db.VarChar(100)
+  Address    AddressModel[]
+  City       CityModel      @relation(fields: [cityId], references: [cityId])
+  cityId     String         @map("city_id")
 }
 
-model Address {
-  addressId  String   @id @default(uuid()) @map("address_id")
-  cep        String   @db.VarChar(10)
-  street     String   @db.VarChar(100)
-  number     String   @db.VarChar(10)
-  complement String   @db.VarChar(100)
-  User       User[]
-  District   District @relation(fields: [districtId], references: [districtId])
-  districtId String   @map("district_id")
+model AddressModel {
+  addressId  String        @id @default(uuid()) @map("address_id")
+  cep        String        @db.VarChar(10)
+  street     String        @db.VarChar(100)
+  number     String        @db.VarChar(10)
+  complement String        @db.VarChar(100)
+  User       UserModel[]
+  District   DistrictModel @relation(fields: [districtId], references: [districtId])
+  districtId String        @map("district_id")
 }
 
-model User {
-  userId    String   @id @default(uuid()) @map("user_id")
-  email     String   @unique @db.VarChar(100)
-  name      String   @db.VarChar(100)
-  password  String   @db.VarChar(100)
-  cnpj      String   @unique @db.VarChar(20)
-  role      String   @default("user") @db.VarChar(10)
-  phone     String   @db.VarChar(20)
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now()) @map("created_at")
-  lastLogin DateTime @map("last_login")
-  address   Address  @relation(fields: [addressId], references: [addressId])
-  addressId String   @map("address_id")
+model UserModel {
+  userId    String       @id @default(uuid()) @map("user_id")
+  email     String       @unique @db.VarChar(100)
+  name      String       @db.VarChar(100)
+  password  String       @db.VarChar(100)
+  cnpj      String       @unique @db.VarChar(20)
+  role      String       @default("user") @db.VarChar(10)
+  phone     String       @db.VarChar(20)
+  active    Boolean      @default(true)
+  createdAt DateTime     @default(now()) @map("created_at")
+  lastLogin DateTime     @map("last_login")
+  address   AddressModel @relation(fields: [addressId], references: [addressId])
+  addressId String       @map("address_id")
 }
