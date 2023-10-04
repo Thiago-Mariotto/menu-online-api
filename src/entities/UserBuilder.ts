@@ -10,7 +10,10 @@ export default class UserBuilder {
   password!: Password;
   phone!: string;
   cnpj: CNPJ;
-  addressId!: string;
+  cep!: string;
+  street!: string;
+  number!: string;
+  complement!: string;
 
   constructor(cnpj: string) {
     this.cnpj = CNPJ.fromString(cnpj);
@@ -36,8 +39,23 @@ export default class UserBuilder {
     return this;
   }
 
-  setAddressId(addressId: string) {
-    this.addressId = addressId;
+  setCep(cep: string) {
+    this.cep = cep;
+    return this;
+  }
+
+  setStreet(street: string) {
+    this.street = street;
+    return this;
+  }
+
+  setNumber(number: string) {
+    this.number = number;
+    return this;
+  }
+
+  setComplement(complement: string) {
+    this.complement = complement;
     return this;
   }
 
