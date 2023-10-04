@@ -3,7 +3,6 @@ import UserBuilder from "../../src/entities/UserBuilder";
 
 describe('# Unit - Entity => User', () => {
   const userBuild = new UserBuilder('24.664.052/0001-20')
-    .setAddressId('1')
     .setEmail('john@mail.com')
     .setName('John Doe')
     .setPassword('1234Abc#')
@@ -43,10 +42,6 @@ describe('# Unit - Entity => User', () => {
 
   test('should return a valid User role', () => {
     expect(user.role).toBeDefined();
-  });
-
-  test('should return a valid User addressId', () => {
-    expect(user.addressId).toBeDefined();
   });
 
   test('should return a valid User phone', () => {
@@ -106,11 +101,5 @@ describe('# Unit - Entity => User', () => {
     const role = 'admin';
     user.role = role;
     expect(user.role).toBe(role);
-  });
-
-  test('should be possible to set user addressId', () => {
-    const addressId = '187';
-    user.addressId = addressId;
-    expect(user.addressId).toBe(addressId);
   });
 });
