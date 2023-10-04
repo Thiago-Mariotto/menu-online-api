@@ -1,3 +1,4 @@
+import Address from './Address';
 import AuthenticatableUser from './AuthenticableUser';
 import UserBuilder from './UserBuilder';
 import CNPJ from './valueObjects/CNPJ';
@@ -10,17 +11,17 @@ export default class User {
   private _name: Name;
   private _authenticableUser: AuthenticatableUser;
   private _role: string;
-  private _addressId: string;
   private _phone: string;
   private _cnpj: CNPJ;
   private _createdAt: Date;
+  private _address: Address;
 
   constructor(builder: UserBuilder) {
     this._name = builder.name;
     this._phone = builder.phone;
     this._cnpj = builder.cnpj;
-    this._addressId = builder.addressId;
     this._authenticableUser = new AuthenticatableUser(builder);
+    this._address = new Address(builder);
     this._role = 'user';
     this._createdAt = new Date();
   }
@@ -29,11 +30,19 @@ export default class User {
     return this._id;
   }
 
-  set id(id: string | undefined) {
+  set id(id: string) {
     if (this._id) {
       return;
     }
     this._id = id;
+  }
+
+  get addressId(): string | undefined {
+    return this._address.id;
+  }
+
+  set addressId(id: string | undefined) {
+    this._address.id = id;
   }
 
   get name(): Name {
@@ -50,10 +59,6 @@ export default class User {
 
   get role(): string {
     return this._role;
-  }
-
-  get addressId(): string {
-    return this._addressId;
   }
 
   get phone(): string {
@@ -76,12 +81,32 @@ export default class User {
     return this._authenticableUser.active;
   }
 
-  set phone(phone: string) {
-    this._phone = phone;
+  get cep(): string {
+    return this._address.cep;
   }
 
-  set addressId(addressId: string) {
-    this._addressId = addressId;
+  get number(): string {
+    return this._address.number;
+  }
+
+  get complement(): string {
+    return this._address.complement;
+  }
+
+  set cep(cep: string) {
+    this._address.cep = cep;
+  }
+
+  set number(number: string) {
+    this._address.number = number;
+  }
+
+  set complement(complement: string) {
+    this._address.complement = complement;
+  }
+
+  set phone(phone: string) {
+    this._phone = phone;
   }
 
   set role(role: string) {
