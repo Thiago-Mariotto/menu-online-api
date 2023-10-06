@@ -6,14 +6,20 @@
   "author": "",
   "scripts": {
     "commit": "git-cz",
+    "db:seed": "yarn ts-node ./prisma/seeds/index.ts",
     "test": "jest"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seeds/index.ts"
   },
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",
     "@commitlint/config-conventional": "^17.7.0",
+    "@types/axios": "^0.14.0",
     "@types/jest": "^29.5.5",
     "@types/node": "^20.7.2",
+    "@types/uuid": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "commitizen": "^4.3.0",
@@ -33,6 +39,7 @@
   },
   "dependencies": {
     "@prisma/client": "5.3.1",
+    "axios": "^1.5.1",
     "pg": "^8.11.3",
     "prisma": "^5.3.1",
     "uuid": "^9.0.1"

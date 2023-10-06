@@ -3,6 +3,12 @@
     "es2021": true,
     "node": true
   },
+  "ignorePatterns": [
+    "temp.*",
+    "*.spec.ts",
+    "*.test.ts",
+    "build/*"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended"
