@@ -19,7 +19,6 @@ export default class UserDataService {
   }
 
   public static async saveUser(user: User): Promise<UserModel> {
-    console.log('salvando user', user.name.value);
     return await this._prisma.userModel.create({
       data: {
         cpf: user.cpf.value,
