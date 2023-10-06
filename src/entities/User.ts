@@ -1,7 +1,6 @@
-import Address from './Address';
 import AuthenticatableUser from './AuthenticableUser';
 import UserBuilder from './UserBuilder';
-import CNPJ from './valueObjects/CNPJ';
+import CPF from './valueObjects/CPF';
 import Email from './valueObjects/Email';
 import Name from './valueObjects/Name';
 import Password from './valueObjects/Password';
@@ -12,16 +11,14 @@ export default class User {
   private _authenticableUser: AuthenticatableUser;
   private _role: 'admin' | 'user';
   private _phone: string;
-  private _cnpj: CNPJ;
+  private _cpf: CPF;
   private _createdAt: Date;
-  private _address: Address;
 
   constructor(builder: UserBuilder) {
     this._name = builder.name;
     this._phone = builder.phone;
-    this._cnpj = builder.cnpj;
+    this._cpf = builder.cpf;
     this._authenticableUser = new AuthenticatableUser(builder);
-    this._address = new Address(builder);
     this._role = 'user';
     this._createdAt = new Date();
   }
@@ -35,18 +32,6 @@ export default class User {
       return;
     }
     this._id = id;
-  }
-
-  get cep(): string {
-    return this._address.cep;
-  }
-
-  get complement(): string {
-    return this._address.complement;
-  }
-
-  get number(): string {
-    return this._address.number;
   }
 
   get name(): Name {
@@ -69,8 +54,8 @@ export default class User {
     return this._phone;
   }
 
-  get cnpj(): CNPJ {
-    return this._cnpj;
+  get cpf(): CPF {
+    return this._cpf;
   }
 
   get createdAt(): Date {
@@ -83,10 +68,6 @@ export default class User {
 
   get active(): boolean {
     return this._authenticableUser.active;
-  }
-
-  get address(): Address {
-    return this._address;
   }
 
   set phone(phone: string) {

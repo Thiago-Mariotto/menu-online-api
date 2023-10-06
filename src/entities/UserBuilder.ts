@@ -1,5 +1,5 @@
 import User from './User';
-import CNPJ from './valueObjects/CNPJ';
+import CPF from './valueObjects/CPF';
 import Email from './valueObjects/Email';
 import Name from './valueObjects/Name';
 import Password from './valueObjects/Password';
@@ -9,14 +9,14 @@ export default class UserBuilder {
   email!: Email;
   password!: Password;
   phone!: string;
-  cnpj: CNPJ;
+  cpf: CPF;
   cep!: string;
   street!: string;
   number!: string;
   complement!: string;
 
-  constructor(cnpj: string) {
-    this.cnpj = CNPJ.fromString(cnpj);
+  constructor(cpf: string) {
+    this.cpf = CPF.fromString(cpf);
   }
 
   setName(name: string) {
@@ -36,26 +36,6 @@ export default class UserBuilder {
 
   setPhone(phone: string) {
     this.phone = phone;
-    return this;
-  }
-
-  setCep(cep: string) {
-    this.cep = cep;
-    return this;
-  }
-
-  setStreet(street: string) {
-    this.street = street;
-    return this;
-  }
-
-  setNumber(number: string) {
-    this.number = number;
-    return this;
-  }
-
-  setComplement(complement: string) {
-    this.complement = complement;
     return this;
   }
 
