@@ -1,12 +1,12 @@
-/* eslint-disable max-lines-per-function */
 import { AddressModel, CityModel, DistrictModel, PrismaClient } from '@prisma/client';
 import User from '../../entities/User';
 import { TDistrictInput, TInputAddress, TViaCepAddress } from '../../types/Address';
 import requester from '../../utils/requester';
+import AddressPrismaMapper from '../../utils/mappers/AddressPrismaMapper';
 
 export default class AddressService {
   private static _prisma = new PrismaClient();
-
+  
   constructor() { }
 
   private static async getAddressByViaCep(cep: string) {
@@ -77,40 +77,37 @@ export default class AddressService {
     });
   }
 
-  public static async checkUserAddress(user: User) {
-    console.log('checkUserAddress', user.address.cep);
-    const cepAlreadyRegistered = await this.getAddressByCep(user.address.cep);
-    if (cepAlreadyRegistered && user.id) {
-      console.log('cepAlreadyRegistered');
-      return await this.saveAddress({
-        cep: cepAlreadyRegistered.cep,
-        street: cepAlreadyRegistered.street,
-        number: user.address.number,
-        complement: user.address.complement,
-        districtId: cepAlreadyRegistered.districtId,
-        userId: user.id
-      });
-
-    } else if (!cepAlreadyRegistered && user.id) {
-      console.log('cepNotRegistered');
-      const findAddresByViaCep = await this.getAddressByViaCep(user.address.cep);
-      const city = await this.getCityByName(findAddresByViaCep.cityName);
-      const newDistrict = await this.saveDistrict({
-        name: findAddresByViaCep.districtName,
-        cityId: city.cityId
-      });
-
-      console.log('salvando endereco', findAddresByViaCep.street);
-      return await this.saveAddress({
-        cep: findAddresByViaCep.cep,
-        street: findAddresByViaCep.street,
-        number: user.address.number,
-        complement: user.address.complement,
-        districtId: newDistrict.districtId,
-        userId: user.id
-      });
+  public static async execute(user: User) {
+    const address = await this.getUserAddressOrThrowError(user);
+    if (!address) {
+      return await this.registerNewAddressFromViaCEP(user);
     }
-    return;
+    return await this.saveAddress({
+      ...address,
+      complement: user.address.complement,
+      number: user.address.number
+    });
+  }
+
+  private static async registerNewAddressFromViaCEP(user: User) {
+    const { cityName, street, districtName, cep } = await this.getAddressByViaCep(user.address.cep);
+    const city = await this.getCityByName(cityName);
+    const newDistrict = await this.saveDistrict({
+      name: districtName,
+      cityId: city.cityId
+    });
+    user.address.street = street;
+    user.address.cep = cep;
+    return await this.saveAddress(Object.assign(
+      AddressPrismaMapper.mapAddressFromUser(user), 
+      { districtId: newDistrict.districtId }
+    ));
+  }
+    
+  private static async getUserAddressOrThrowError(user: User) {
+    const cepAlreadyRegistered = await this.getAddressByCep(user.address.cep);
+    if (!user.id) throw new Error('user id not found');
+    return cepAlreadyRegistered;
   }
 
   private static parseAddress(address: TViaCepAddress) {

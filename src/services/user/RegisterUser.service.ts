@@ -1,7 +1,7 @@
 import User from '../../entities/User';
 import UserBuilder from '../../entities/UserBuilder';
 import { UserRegisterDTO } from '../../types/User';
-import AddressService from '../address/AddressService';
+import AddressService from '../address/AddressService.service';
 import UserDataService from './UserData.service';
 
 export default class RegisterUserService {
@@ -23,7 +23,7 @@ export default class RegisterUserService {
     await this.validateUser(this._user);
     const newUser = await UserDataService.saveUser(this._user);
     this._user.id = newUser.userId;
-    await AddressService.checkUserAddress(this._user);
+    await AddressService.execute(this._user);
     return;
   }
 
@@ -37,3 +37,20 @@ export default class RegisterUserService {
     }
   }
 }
+
+
+const newUser: UserRegisterDTO = {
+  name: 'Hamburguer do Zé',
+  email: 'john2@mail.com',
+  cnpj: '33.113.309/0001-47',
+  cep: '12414-070',
+  complement: 'casa',
+  number: '240',
+  password: '123Abcde!!',
+  phone: '(12) 99212-9876',
+};
+
+new RegisterUserService(newUser).execute()
+  .then(() => console.log('done'))
+  .catch((err) => console.error(err));
+
