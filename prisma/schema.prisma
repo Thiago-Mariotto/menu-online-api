@@ -45,8 +45,6 @@ model AddressModel {
   addressId         String              @id @default(uuid()) @map("address_id")
   cep               String              @db.VarChar(10)
   street            String              @db.VarChar(100)
-  number            String              @db.VarChar(10)
-  complement        String              @db.VarChar(100)
   District          DistrictModel       @relation(fields: [districtId], references: [districtId])
   districtId        String              @map("district_id")
   StoreAddressModel StoreAddressModel[]
