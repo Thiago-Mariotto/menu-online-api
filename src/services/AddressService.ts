@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { AddressModel, CityModel, DistrictModel, PrismaClient } from '@prisma/client';
 import User from '../entities/User';
-import { District, TInputAddress, TViaCepAddress } from '../types/Address';
+import { TDistrictInput, TInputAddress, TViaCepAddress } from '../types/Address';
 import requester from '../utils/requester';
 
 export default class AddressService {
@@ -41,7 +41,7 @@ export default class AddressService {
     return district || null;
   }
 
-  public static async saveDistrict(district: Omit<District, 'districtId'>): Promise<DistrictModel> {
+  public static async saveDistrict(district: Omit<TDistrictInput, 'districtId'>): Promise<DistrictModel> {
     const newDistrict = await this._prisma.districtModel.create({
       data: {
         name: district.name,
