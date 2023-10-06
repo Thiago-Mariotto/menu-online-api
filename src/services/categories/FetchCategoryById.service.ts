@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client';
-import { IService } from '../IService';
 import Category from '../../entities/Category';
+import { IService } from '../IService';
 
 export default class FetchCategoryByIdService implements IService<string, Category> {
   private _prisma = new PrismaClient();
-  
+
   public async execute(categoryId: string) {
-    const prismaCategory = await this._prisma.category.findFirst({
+    const prismaCategory = await this._prisma.categoryModel.findFirst({
       where: {
         categoryId: categoryId,
       }
