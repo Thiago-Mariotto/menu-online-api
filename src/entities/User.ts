@@ -10,7 +10,7 @@ export default class User {
   private _id?: string;
   private _name: Name;
   private _authenticableUser: AuthenticatableUser;
-  private _role: string;
+  private _role: 'admin' | 'user';
   private _phone: string;
   private _cnpj: CNPJ;
   private _createdAt: Date;
@@ -37,6 +37,18 @@ export default class User {
     this._id = id;
   }
 
+  get cep(): string {
+    return this._address.cep;
+  }
+
+  get complement(): string {
+    return this._address.complement;
+  }
+
+  get number(): string {
+    return this._address.number;
+  }
+
   get name(): Name {
     return this._name;
   }
@@ -49,7 +61,7 @@ export default class User {
     return this._authenticableUser.password;
   }
 
-  get role(): string {
+  get role(): 'admin' | 'user' {
     return this._role;
   }
 
@@ -82,6 +94,9 @@ export default class User {
   }
 
   set role(role: string) {
+    if (role !== 'admin' && role !== 'user') {
+      throw new Error('Invalid role');
+    }
     this._role = role;
   }
 
