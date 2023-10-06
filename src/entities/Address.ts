@@ -5,11 +5,13 @@ export default class Address {
   private _cep: string;
   private _number: string;
   private _complement: string;
+  private _street: string;
 
   constructor(builder: UserBuilder) {
     this._cep = builder.cep;
     this._number = builder.number;
     this._complement = builder.complement;
+    this._street = builder.street;
   }
 
   get id(): string | undefined {
@@ -46,6 +48,14 @@ export default class Address {
 
   set complement(complement: string) {
     this._complement = complement;
+  }
+
+  set street(street: string) {
+    this._street = street;
+  }
+
+  get street(): string {
+    return this._street;
   }
 
   private static validateCep(cep: string): boolean {
