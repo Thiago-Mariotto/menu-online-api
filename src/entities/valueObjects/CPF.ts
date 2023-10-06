@@ -1,12 +1,12 @@
 export default class CPF {
   private cpf: string;
-  
+
   private constructor(cpf: string) {
     this.cpf = cpf;
   }
 
   static fromString(value: string): CPF {
-    if (!CPF.validCpf(value)) throw new Error('CPF inválido');
+    if (!CPF.validCpf(value)) throw new Error('Invalid CPF');
     return new CPF(CPF.formatCPF(value));
   }
 
