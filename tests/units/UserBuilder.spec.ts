@@ -7,7 +7,6 @@ describe('# Unit - Entity => UserBuilder', function () {
       .setEmail('john.doe@mail.com')
       .setPassword('1234Abc#')
       .setPhone('31999999999')
-      .setAddressId('1')
       .build();
 
     expect(user).toBeDefined();
@@ -20,7 +19,7 @@ describe('# Unit - Entity => UserBuilder', function () {
         .setEmail('john.doe@mail.com')
         .setPassword('1234Abc#')
         .setPhone('31999999999')
-        .setAddressId('1')
+
         .build()
     ).toThrowError('Invalid CNPJ');
   });
@@ -32,7 +31,7 @@ describe('# Unit - Entity => UserBuilder', function () {
         .setEmail('john.doe@com')
         .setPassword('1234Abc#')
         .setPhone('31999999999')
-        .setAddressId('1')
+
         .build()
     ).toThrowError('Invalid Email');
   });
@@ -44,7 +43,7 @@ describe('# Unit - Entity => UserBuilder', function () {
         .setEmail('john.doe@mail.com')
         .setPassword('1234Abc')
         .setPhone('31999999999')
-        .setAddressId('1')
+
         .build()
     ).toThrowError('Invalid Password');
   });
@@ -56,7 +55,7 @@ describe('# Unit - Entity => UserBuilder', function () {
         .setEmail('john.doe@mail.com')
         .setPassword('Abcdefga#')
         .setPhone('31999999999')
-        .setAddressId('1')
+
         .build()
     ).toThrowError('Invalid Password');
   });
@@ -68,7 +67,7 @@ describe('# Unit - Entity => UserBuilder', function () {
         .setEmail('john.doe@mail.com')
         .setPassword('abcde123#')
         .setPhone('31999999999')
-        .setAddressId('1')
+
         .build()
     ).toThrowError('Invalid Password');
   });
@@ -80,7 +79,7 @@ describe('# Unit - Entity => UserBuilder', function () {
         .setEmail('john.doe@mail.com')
         .setPassword('ABCDEF123#')
         .setPhone('31999999999')
-        .setAddressId('1')
+
         .build()
     ).toThrowError('Invalid Password');
   });
