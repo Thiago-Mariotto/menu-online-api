@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { IService } from '../IService';
-import { CreatedCategoryDTO, CreationCategoryDTO } from '../../types/Category';
 import Category from '../../entities/Category';
+import { CreatedCategoryDTO, CreationCategoryDTO } from '../../types/Category';
+import { IService } from '../IService';
 
 
 export default class CreateCategoryService implements IService<CreationCategoryDTO, CreatedCategoryDTO> {
@@ -9,7 +9,7 @@ export default class CreateCategoryService implements IService<CreationCategoryD
 
   public async execute(categoryDTO: CreationCategoryDTO) {
     const category = new Category(categoryDTO.name);
-    const createdCategory = this._prisma.category.create({
+    const createdCategory = this._prisma.categoryModel.create({
       data: {
         name: category.name.value,
       }
