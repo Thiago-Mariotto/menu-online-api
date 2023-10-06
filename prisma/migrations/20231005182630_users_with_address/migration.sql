@@ -32,6 +32,7 @@ CREATE TABLE "AddressModel" (
     "street" VARCHAR(100) NOT NULL,
     "number" VARCHAR(10) NOT NULL,
     "complement" VARCHAR(100) NOT NULL,
+    "user_id" TEXT NOT NULL,
     "district_id" TEXT NOT NULL,
 
     CONSTRAINT "AddressModel_pkey" PRIMARY KEY ("address_id")
@@ -49,10 +50,12 @@ CREATE TABLE "UserModel" (
     "active" BOOLEAN NOT NULL DEFAULT true,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "last_login" TIMESTAMP(3) NOT NULL,
-    "address_id" TEXT NOT NULL,
 
     CONSTRAINT "UserModel_pkey" PRIMARY KEY ("user_id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "AddressModel_user_id_key" ON "AddressModel"("user_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "UserModel_email_key" ON "UserModel"("email");
@@ -67,7 +70,7 @@ ALTER TABLE "CityModel" ADD CONSTRAINT "CityModel_state_id_fkey" FOREIGN KEY ("s
 ALTER TABLE "DistrictModel" ADD CONSTRAINT "DistrictModel_city_id_fkey" FOREIGN KEY ("city_id") REFERENCES "CityModel"("city_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AddressModel" ADD CONSTRAINT "AddressModel_district_id_fkey" FOREIGN KEY ("district_id") REFERENCES "DistrictModel"("district_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AddressModel" ADD CONSTRAINT "AddressModel_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "UserModel"("user_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserModel" ADD CONSTRAINT "UserModel_address_id_fkey" FOREIGN KEY ("address_id") REFERENCES "AddressModel"("address_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AddressModel" ADD CONSTRAINT "AddressModel_district_id_fkey" FOREIGN KEY ("district_id") REFERENCES "DistrictModel"("district_id") ON DELETE RESTRICT ON UPDATE CASCADE;
