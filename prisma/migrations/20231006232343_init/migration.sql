@@ -40,8 +40,6 @@ CREATE TABLE "AddressModel" (
     "address_id" TEXT NOT NULL,
     "cep" VARCHAR(10) NOT NULL,
     "street" VARCHAR(100) NOT NULL,
-    "number" VARCHAR(10) NOT NULL,
-    "complement" VARCHAR(100) NOT NULL,
     "district_id" TEXT NOT NULL,
 
     CONSTRAINT "AddressModel_pkey" PRIMARY KEY ("address_id")
