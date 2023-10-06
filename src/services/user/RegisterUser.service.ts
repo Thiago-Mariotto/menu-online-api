@@ -8,14 +8,11 @@ export default class RegisterUserService {
   private _user: User;
 
   constructor(data: UserRegisterDTO) {
-    this._user = new UserBuilder(data.cnpj)
+    this._user = new UserBuilder(data.cpf)
       .setName(data.name)
       .setEmail(data.email)
       .setPassword(data.password)
       .setPhone(data.phone)
-      .setCep(data.cep)
-      .setNumber(data.number)
-      .setComplement(data.complement)
       .build();
   }
 
@@ -27,9 +24,9 @@ export default class RegisterUserService {
     return;
   }
 
-  private async validateUser(user: User) {
-    if (await UserDataService.getUserByCnpj(user.cnpj.value)) {
-      throw new Error('CNPJ já cadastrado');
+  private async validateUser(user: User): Promise<void> {
+    if (await UserDataService.getUserByCPF(user.cpf.value)) {
+      throw new Error('CPF já cadastrado');
     }
 
     if (await UserDataService.getUserByEmail(user.email.value)) {

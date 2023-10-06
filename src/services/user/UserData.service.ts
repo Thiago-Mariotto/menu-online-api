@@ -14,15 +14,15 @@ export default class UserDataService {
     return this._prisma.userModel.findUnique({ where: { email } });
   }
 
-  public static async getUserByCnpj(cnpj: string): Promise<UserModel | null> {
-    return this._prisma.userModel.findUnique({ where: { cnpj } });
+  public static async getUserByCPF(cpf: string): Promise<UserModel | null> {
+    return this._prisma.userModel.findUnique({ where: { cpf } });
   }
 
   public static async saveUser(user: User): Promise<UserModel> {
     console.log('salvando user', user.name.value);
     return await this._prisma.userModel.create({
       data: {
-        cnpj: user.cnpj.value,
+        cpf: user.cpf.value,
         name: user.name.value,
         email: user.email.value,
         password: user.password.value,
