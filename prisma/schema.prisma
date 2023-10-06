@@ -39,22 +39,22 @@ model AddressModel {
   street     String        @db.VarChar(100)
   number     String        @db.VarChar(10)
   complement String        @db.VarChar(100)
-  User       UserModel[]
+  User       UserModel     @relation(fields: [userId], references: [userId])
+  userId     String        @unique @map("user_id")
   District   DistrictModel @relation(fields: [districtId], references: [districtId])
   districtId String        @map("district_id")
 }
 
 model UserModel {
-  userId    String       @id @default(uuid()) @map("user_id")
-  email     String       @unique @db.VarChar(100)
-  name      String       @db.VarChar(100)
-  password  String       @db.VarChar(100)
-  cnpj      String       @unique @db.VarChar(20)
-  role      String       @default("user") @db.VarChar(10)
-  phone     String       @db.VarChar(20)
-  active    Boolean      @default(true)
-  createdAt DateTime     @default(now()) @map("created_at")
-  lastLogin DateTime     @map("last_login")
-  address   AddressModel @relation(fields: [addressId], references: [addressId])
-  addressId String       @map("address_id")
+  userId    String        @id @default(uuid()) @map("user_id")
+  email     String        @unique @db.VarChar(100)
+  name      String        @db.VarChar(100)
+  password  String        @db.VarChar(100)
+  cnpj      String        @unique @db.VarChar(20)
+  role      String        @default("user") @db.VarChar(10)
+  phone     String        @db.VarChar(20)
+  active    Boolean       @default(true)
+  createdAt DateTime      @default(now()) @map("created_at")
+  lastLogin DateTime      @map("last_login")
+  address   AddressModel?
 }
