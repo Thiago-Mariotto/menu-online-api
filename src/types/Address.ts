@@ -17,7 +17,6 @@ export type TInputAddress = {
 }
 
 export type TDistrictInput = {
-  districtId: string;
   name: string;
   cityId: string;
 }
