@@ -37,14 +37,6 @@ export default class User {
     this._id = id;
   }
 
-  get addressId(): string | undefined {
-    return this._address.id;
-  }
-
-  set addressId(id: string | undefined) {
-    this._address.id = id;
-  }
-
   get name(): Name {
     return this._name;
   }
@@ -81,28 +73,8 @@ export default class User {
     return this._authenticableUser.active;
   }
 
-  get cep(): string {
-    return this._address.cep;
-  }
-
-  get number(): string {
-    return this._address.number;
-  }
-
-  get complement(): string {
-    return this._address.complement;
-  }
-
-  set cep(cep: string) {
-    this._address.cep = cep;
-  }
-
-  set number(number: string) {
-    this._address.number = number;
-  }
-
-  set complement(complement: string) {
-    this._address.complement = complement;
+  get address(): Address {
+    return this._address;
   }
 
   set phone(phone: string) {
