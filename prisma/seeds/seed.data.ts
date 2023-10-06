@@ -90,26 +90,18 @@ export const addresses = [
     addressId: '614f7214-ddb9-4859-88d0-ffbd113bf6ea',
     cep: '12414070',
     street: 'Rua ubatuba',
-    number: '190',
-    complement: 'casa',
-    userId: '6c7fa7d7-9918-4791-b3d2-0fa3a5bcc35a',
     districtId: 'b04735a9-3dde-41af-ae23-54ea1fa0f2da'
   },
   {
     addressId: 'c2e3e1e4-1c2e-4a8c-9a4c-9b7c5d1a7e7f',
     cep: '12230670',
     street: 'Rua Nazaré',
-    number: '385',
-    complement: 'apt 9',
-    userId: 'c70d9017-0518-47c3-a2db-c4cbc545c126',
     districtId: '30dfbdeb-3495-4cc2-84be-d7782303f35a'
   },
   {
     addressId: 'e2b9b1d7-2f2e-4f2e-9b5b-6b7c5d1a7e7f',
     cep: '31275973',
     street: 'Avenida Presidente Antônio Carlos',
-    number: '8151',
-    complement: 'galpao',
     userId: 'f7bdd5cd-60db-44d8-a606-57ecca86a439',
     districtId: 'e39c75e0-cc0d-403d-88eb-7617a58f9140'
   }
