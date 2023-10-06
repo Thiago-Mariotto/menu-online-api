@@ -2,7 +2,7 @@ import UserBuilder from "../../src/entities/UserBuilder";
 
 describe('# Unit - Entity => UserBuilder', function () {
   test('should create a valid UserBuilder', function () {
-    const user = new UserBuilder('24.664.052/0001-20')
+    const user = new UserBuilder('906.789.730-24')
       .setName('John Doe')
       .setEmail('john.doe@mail.com')
       .setPassword('1234Abc#')
@@ -12,7 +12,7 @@ describe('# Unit - Entity => UserBuilder', function () {
     expect(user).toBeDefined();
   });
 
-  test('should throw an error when create a User with invalid CNPJ', function () {
+  test('should throw an error when create a User with invalid CPF', function () {
     expect(() =>
       new UserBuilder('24664052000120')
         .setName('John Doe')
@@ -21,12 +21,12 @@ describe('# Unit - Entity => UserBuilder', function () {
         .setPhone('31999999999')
 
         .build()
-    ).toThrowError('Invalid CNPJ');
+    ).toThrowError('Invalid CPF');
   });
 
   test('should throw an error when create a User with invalid Email', function () {
     expect(() =>
-      new UserBuilder('24.664.052/0001-20')
+      new UserBuilder('906.789.730-24')
         .setName('John Doe')
         .setEmail('john.doe@com')
         .setPassword('1234Abc#')
@@ -38,7 +38,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Password without especial character', function () {
     expect(() =>
-      new UserBuilder('24.664.052/0001-20')
+      new UserBuilder('906.789.730-24')
         .setName('John Doe')
         .setEmail('john.doe@mail.com')
         .setPassword('1234Abc')
@@ -50,7 +50,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Password without number character', function () {
     expect(() =>
-      new UserBuilder('24.664.052/0001-20')
+      new UserBuilder('906.789.730-24')
         .setName('John Doe')
         .setEmail('john.doe@mail.com')
         .setPassword('Abcdefga#')
@@ -62,7 +62,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Password without upper case character', function () {
     expect(() =>
-      new UserBuilder('24.664.052/0001-20')
+      new UserBuilder('906.789.730-24')
         .setName('John Doe')
         .setEmail('john.doe@mail.com')
         .setPassword('abcde123#')
@@ -74,7 +74,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Password without lower case character', function () {
     expect(() =>
-      new UserBuilder('24.664.052/0001-20')
+      new UserBuilder('906.789.730-24')
         .setName('John Doe')
         .setEmail('john.doe@mail.com')
         .setPassword('ABCDEF123#')
