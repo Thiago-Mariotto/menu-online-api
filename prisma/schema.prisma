@@ -57,6 +57,7 @@ model UserModel {
   createdAt DateTime      @default(now()) @map("created_at")
   lastLogin DateTime      @map("last_login")
   address   AddressModel?
+}
 
 model Category {
   categoryId String    @id @default(uuid()) @map("category_id")
