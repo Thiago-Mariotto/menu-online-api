@@ -10,10 +10,7 @@ export type TViaCepAddress = {
 export type TInputAddress = {
   cep: string;
   street: string;
-  number: string;
-  complement: string;
   districtId: string;
-  userId: string;
 }
 
 export type TDistrictInput = {
