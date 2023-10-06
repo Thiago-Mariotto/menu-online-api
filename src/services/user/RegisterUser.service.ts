@@ -1,8 +1,8 @@
-import User from '../entities/User';
-import UserBuilder from '../entities/UserBuilder';
-import { UserRegisterDTO } from '../types/User';
-import AddressService from './AddressService';
-import UserDataService from './UserDataService';
+import User from '../../entities/User';
+import UserBuilder from '../../entities/UserBuilder';
+import { UserRegisterDTO } from '../../types/User';
+import AddressService from '../address/AddressService';
+import UserDataService from './UserData.service';
 
 export default class RegisterUserService {
   private _user: User;

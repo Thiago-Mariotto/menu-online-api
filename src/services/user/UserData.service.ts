@@ -1,5 +1,5 @@
 import { PrismaClient, UserModel } from '@prisma/client';
-import User from '../entities/User';
+import User from '../../entities/User';
 
 export default class UserDataService {
   private static _prisma = new PrismaClient();

@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import removeFields from '../utils/excludeObjectField';
+import removeFields from '../../utils/excludeObjectField';
 
 export default class FetchAllUsersService {
   private _prisma = new PrismaClient();
