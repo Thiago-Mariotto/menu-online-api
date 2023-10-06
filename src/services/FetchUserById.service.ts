@@ -1,7 +1,7 @@
-import { PrismaClient, UserModel } from '@prisma/client';
-import { IService } from './IService';
+import { PrismaClient } from '@prisma/client';
+import removeFields from '../utils/excludeObjectField';
 
-export default class FetchCategoryByIdService implements IService<string, UserModel> {
+export default class FetchUserByIdService {
   private _prisma = new PrismaClient();
 
   public async execute(userId: string) {
@@ -11,8 +11,9 @@ export default class FetchCategoryByIdService implements IService<string, UserMo
       }
     });
     if (!user) {
-      throw new Error(`Category with id ${userId} not found`);
+      throw new Error(`User with id ${userId} not found`);
     }
-    return user;
+    const userWithoutPassword = removeFields(user, ['password']);
+    return userWithoutPassword;
   }
 }
