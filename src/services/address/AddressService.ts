@@ -1,13 +1,9 @@
-/* eslint-disable max-lines-per-function */
 import { AddressModel, CityModel, DistrictModel, PrismaClient } from '@prisma/client';
-import User from '../../entities/User';
 import { TDistrictInput, TInputAddress, TViaCepAddress } from '../../types/Address';
 import requester from '../../utils/requester';
 
 export default class AddressService {
   private static _prisma = new PrismaClient();
-
-  constructor() { }
 
   private static async getAddressByViaCep(cep: string) {
     try {
@@ -69,48 +65,28 @@ export default class AddressService {
       data: {
         cep: address.cep,
         street: address.street,
-        number: address.number,
-        complement: address.complement,
-        districtId: address.districtId,
-        userId: address.userId
+        districtId: address.districtId
       }
     });
   }
 
-  public static async checkUserAddress(user: User) {
-    console.log('checkUserAddress', user.address.cep);
-    const cepAlreadyRegistered = await this.getAddressByCep(user.address.cep);
-    if (cepAlreadyRegistered && user.id) {
-      console.log('cepAlreadyRegistered');
-      return await this.saveAddress({
-        cep: cepAlreadyRegistered.cep,
-        street: cepAlreadyRegistered.street,
-        number: user.address.number,
-        complement: user.address.complement,
-        districtId: cepAlreadyRegistered.districtId,
-        userId: user.id
-      });
+  private static async registerNewAddressFromViaCEP(userCep: string) {
+    const { cityName, districtName, street, cep } = await this.getAddressByViaCep(userCep);
+    const city = await this.getCityByName(cityName);
+    const newDistrict = await this.saveDistrict({
+      name: districtName,
+      cityId: city.cityId
+    });
+    return await this.saveAddress({
+      cep,
+      street,
+      districtId: newDistrict.districtId
+    });
+  }
 
-    } else if (!cepAlreadyRegistered && user.id) {
-      console.log('cepNotRegistered');
-      const findAddresByViaCep = await this.getAddressByViaCep(user.address.cep);
-      const city = await this.getCityByName(findAddresByViaCep.cityName);
-      const newDistrict = await this.saveDistrict({
-        name: findAddresByViaCep.districtName,
-        cityId: city.cityId
-      });
-
-      console.log('salvando endereco', findAddresByViaCep.street);
-      return await this.saveAddress({
-        cep: findAddresByViaCep.cep,
-        street: findAddresByViaCep.street,
-        number: user.address.number,
-        complement: user.address.complement,
-        districtId: newDistrict.districtId,
-        userId: user.id
-      });
-    }
-    return;
+  private static async getAddressOrThrowError(cep: string) {
+    const cepAlreadyRegistered = await this.getAddressByCep(cep);
+    return cepAlreadyRegistered;
   }
 
   private static parseAddress(address: TViaCepAddress) {
