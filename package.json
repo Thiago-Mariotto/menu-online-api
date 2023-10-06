@@ -7,7 +7,8 @@
   "scripts": {
     "commit": "git-cz",
     "db:seed": "yarn ts-node ./prisma/seeds/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "lint": "yarn eslint --ext .ts ."
   },
   "prisma": {
     "seed": "ts-node prisma/seeds/index.ts"
