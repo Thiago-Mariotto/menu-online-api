@@ -1,4 +1,4 @@
-export type ViaCepAddress = {
+export type TViaCepAddress = {
   cep: string;
   logradouro: string;
   complemento: string;
@@ -7,7 +7,16 @@ export type ViaCepAddress = {
   uf: string;
 }
 
-export type District = {
+export type TInputAddress = {
+  cep: string;
+  street: string;
+  number: string;
+  complement: string;
+  districtId: string;
+  userId: string;
+}
+
+export type TDistrictInput = {
   districtId: string;
   name: string;
   cityId: string;
