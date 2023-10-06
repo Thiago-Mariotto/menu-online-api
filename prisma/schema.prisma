@@ -59,6 +59,27 @@ model UserModel {
   address   AddressModel?
 
 model Category {
-  categoryId String @id @default(uuid()) @map("category_id")
-  name       String @db.VarChar(100)
+  categoryId String    @id @default(uuid()) @map("category_id")
+  name       String    @db.VarChar(100)
+  Product    Product[]
+}
+
+model Product {
+  productId      String         @id @default(uuid()) @map("product_id")
+  name           String         @db.VarChar(100)
+  description    String         @db.VarChar(100)
+  price          Float          @db.DoublePrecision
+  promotionPrice Float          @db.DoublePrecision
+  quantity       Int            @db.Integer
+  Category       Category       @relation(fields: [categoryId], references: [categoryId])
+  categoryId     String         @map("category_id")
+  image          ProductImage[]
+}
+
+model ProductImage {
+  id        Int     @id @default(autoincrement())
+  path      String  @db.VarChar(100)
+  filename  String  @db.VarChar(100)
+  Product   Product @relation(fields: [productId], references: [productId])
+  productId String  @map("product_id")
 }
