@@ -1,8 +1,8 @@
 /* eslint-disable max-lines-per-function */
 import { AddressModel, CityModel, DistrictModel, PrismaClient } from '@prisma/client';
-import User from '../entities/User';
-import { TDistrictInput, TInputAddress, TViaCepAddress } from '../types/Address';
-import requester from '../utils/requester';
+import User from '../../entities/User';
+import { TDistrictInput, TInputAddress, TViaCepAddress } from '../../types/Address';
+import requester from '../../utils/requester';
 
 export default class AddressService {
   private static _prisma = new PrismaClient();
