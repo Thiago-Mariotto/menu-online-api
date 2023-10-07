@@ -7,6 +7,14 @@ export type TViaCepAddress = {
   uf: string;
 }
 
+export type TOutputApiServiceAddress = {
+  cep: string;
+  street: string;
+  districtName: string;
+  cityName: string;
+  stateName: string;
+}
+
 export type TInputAddress = {
   cep: string;
   street: string;
