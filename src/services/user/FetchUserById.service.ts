@@ -1,17 +1,18 @@
-import { PrismaClient } from '@prisma/client';
+import UserRepository from '../../entities/repositories/UserRepository';
+import NotFound from '../../errors/NotFound';
 import removeFields from '../../utils/excludeObjectField';
 
 export default class FetchUserByIdService {
-  private _prisma = new PrismaClient();
+  private _userRepository: UserRepository;
+
+  constructor(userRepository: UserRepository) {
+    this._userRepository = userRepository;
+  }
 
   public async execute(userId: string) {
-    const user = await this._prisma.userModel.findFirst({
-      where: {
-        userId: userId,
-      }
-    });
+    const user = await this._userRepository.getById(userId);
     if (!user) {
-      throw new Error(`User with id ${userId} not found`);
+      throw new NotFound(`User with id ${userId} not found`);
     }
     const userWithoutPassword = removeFields(user, ['password']);
     return userWithoutPassword;
