@@ -3,26 +3,23 @@ import FetchUserByIdService from '../../../src/services/user/FetchUserById.servi
 import { userFromDatabase } from '../../mocks/user.mock';
 
 describe('# Unit - Services => Fetch All Users', () => {
-  let fetchAllUsersService: FetchUserByIdService;
+  let fetchUserByIdService: FetchUserByIdService;
   let userMemoryRepository: UserMemoryRepository;
 
   beforeEach(() => {
     userMemoryRepository = new UserMemoryRepository();
-    fetchAllUsersService = new FetchUserByIdService(userMemoryRepository);
+    fetchUserByIdService = new FetchUserByIdService(userMemoryRepository);
   });
 
   test('should fetch user success', async () => {
     userMemoryRepository.getById = jest.fn().mockReturnValueOnce(userFromDatabase);
-    const user = await fetchAllUsersService.execute(userFromDatabase.userId);
-    expect(userMemoryRepository.getById).toHaveBeenCalledTimes(1);
-    expect(userMemoryRepository.getById).toHaveBeenCalledWith(userFromDatabase.userId);
+    const user = await fetchUserByIdService.execute(userFromDatabase.userId);
+    expect(user.userId).toBe(userFromDatabase.userId);
   });
 
   test('should return not found if user not found', async () => {
     userMemoryRepository.getById = jest.fn().mockReturnValueOnce(null);
-    const user = await fetchAllUsersService.execute(userFromDatabase.userId);
-    expect(userMemoryRepository.getById).toHaveBeenCalledTimes(1);
-    expect(userMemoryRepository.getById).toHaveBeenCalledWith(userFromDatabase.userId);
-    expect(user).toBeNull();
+    await expect(fetchUserByIdService.execute('96c1b233-7a87-4c40-979f-cca7acc6d4b8'))
+      .rejects.toThrow('User with id 96c1b233-7a87-4c40-979f-cca7acc6d4b8 not found');
   });
 });
