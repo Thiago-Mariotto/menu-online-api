@@ -88,3 +88,10 @@ model ProductImageModel {
   Product   ProductModel @relation(fields: [productId], references: [productId])
   productId String       @map("product_id")
 }
+
+model ClientModel {
+  id    String @id @default(uuid()) @map("client_id")
+  name  String @db.VarChar(100)
+  email String @unique @db.VarChar(100)
+  phone String @db.VarChar(20)
+}
