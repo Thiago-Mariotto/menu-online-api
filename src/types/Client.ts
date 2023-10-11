@@ -5,7 +5,7 @@ export type TCreationClientDTO = {
 }
 
 export type TCreatedClient = {
-  id: string;
+  clientId: string;
   name: string;
   email: string;
   phone: string;
