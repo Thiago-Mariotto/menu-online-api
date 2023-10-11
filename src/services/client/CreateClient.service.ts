@@ -16,6 +16,6 @@ export default class CreateClientService implements IService<TCreationClientDTO,
     const clientAlreadyExists = await this._clientRepository.findByEmail(client.email.value);
     if (clientAlreadyExists) throw new Conflict('Client already exists');
 
-    return await this._clientRepository.create(client);
+    return await this._clientRepository.save(client);
   }
 }
