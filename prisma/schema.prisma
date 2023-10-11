@@ -90,8 +90,8 @@ model ProductImageModel {
 }
 
 model ClientModel {
-  id    String @id @default(uuid()) @map("client_id")
-  name  String @db.VarChar(100)
-  email String @unique @db.VarChar(100)
-  phone String @db.VarChar(20)
+  clientId String @id @default(uuid()) @map("client_id")
+  name     String @db.VarChar(100)
+  email    String @unique @db.VarChar(100)
+  phone    String @db.VarChar(20)
 }
