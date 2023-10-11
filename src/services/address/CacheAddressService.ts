@@ -1,13 +1,19 @@
 import { PrismaClient } from '@prisma/client';
-import { TOutputApiServiceAddress } from '../../types/Address';
+import { TAddressServices, TOutputApiServiceAddress } from '../../types/Address';
 import { IService } from '../IService';
 import ViaCepAddressFetcher from '../viaCep/ViaCepAddressFetcher.service';
+import AddressServiceBuilder from './builders/AddressServiceBuilder';
 
-export default class AddressService implements IService<string, TOutputApiServiceAddress> {
+export default class CacheAddressService implements IService<string, TOutputApiServiceAddress> {
+
+  private addressServices: TAddressServices;
+  private addressServicesBuilder = AddressServiceBuilder;
 
   constructor(
     private _apiService: IService<string, TOutputApiServiceAddress> = new ViaCepAddressFetcher(),
-    private _orm = new PrismaClient()) { }
+    private _orm = new PrismaClient()) { 
+    this.addressServices = this.addressServicesBuilder.buildAddressServices();
+  }
 
   async execute(cepData: string): Promise<TOutputApiServiceAddress> {
     try {
@@ -28,7 +34,7 @@ export default class AddressService implements IService<string, TOutputApiServic
 
   private async handleCacheFetchStrategy(cepData: string): Promise<TOutputApiServiceAddress> {
     const { cityName, districtName, street, cep } = await this._apiService.execute(cepData);
-    const city = await this.getCityByNameOrThrow(cityName);
+    const city = await this.addressServices.cityService.getCityByNameOrThrow(cityName);
     const newAddress = await this.saveAddress({
       districtName: districtName,
       cityId: city.cityId,
@@ -40,13 +46,13 @@ export default class AddressService implements IService<string, TOutputApiServic
       cep: newAddress.cep,
       cityName,
       districtName,
-      stateName: await this.getStateNameByIdOrThrow(city.stateId),
+      stateName: await this.addressServices.stateService.getStateNameByIdOrThrow(city.stateId),
       street
     };
   }
 
   private async saveAddress(address: { districtName: string, cityId: string, cep: string, street: string }) {
-    const newDistrict = await this.saveDistrict({
+    const newDistrict = await this.addressServices.districtService.saveDistrict({
       name: address.districtName,
       cityId: address.cityId
     });
@@ -55,27 +61,6 @@ export default class AddressService implements IService<string, TOutputApiServic
         cep: address.cep,
         street: address.street,
         districtId: newDistrict.districtId
-      }
-    });
-  }
-
-  private async getStateNameByIdOrThrow(stateId: string) {
-    const state = await this._orm.stateModel.findFirst({ where: { stateId } });
-    if (!state) throw new Error('State does not exist');
-    return state.name;
-  }
-
-  private async getCityByNameOrThrow(cityName: string) {
-    const city = await this._orm.cityModel.findFirst({ where: { name: cityName } });
-    if (!city) throw new Error('City does not exist');
-    return city;
-  }
-
-  private async saveDistrict(district: { name: string, cityId: string}) {
-    return await this._orm.districtModel.create({
-      data: {
-        name: district.name,
-        cityId: district.cityId
       }
     });
   }
