@@ -2,7 +2,7 @@ import User from "../../src/entities/User";
 import UserBuilder from "../../src/entities/UserBuilder";
 
 describe('# Unit - Entity => User', () => {
-  const userBuild = new UserBuilder('24.664.052/0001-20')
+  const userBuild = new UserBuilder('582.304.650-29')
     .setEmail('john@mail.com')
     .setName('John Doe')
     .setPassword('1234Abc#')
@@ -48,8 +48,8 @@ describe('# Unit - Entity => User', () => {
     expect(user.phone).toBeDefined();
   });
 
-  test('should return a valid User cnpj', () => {
-    expect(user.cnpj).toBeDefined();
+  test('should return a valid User cpf', () => {
+    expect(user.cpf).toBeDefined();
   });
 
   test('should return a valid User createdAt', () => {
