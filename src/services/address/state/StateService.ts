@@ -2,8 +2,8 @@ import { PrismaClient } from '@prisma/client';
 
 export default class StateService {
 private _stateRepository: IStateRepository;
-  constructor(private _orm = new PrismaClient()) {
-    
+  constructor(stateRepository: IStateRepository) {
+    this._stateRepository = stateRepository;
   }
 
   public async getStateNameByIdOrThrow(stateId: string) {
