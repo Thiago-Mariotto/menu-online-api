@@ -1,4 +1,4 @@
-import ClientMemoryRepository from '../../../src/repositories/client/ClientMemoryRepository';
+import ClientMemoryRepository from '../../../src/repositories/client/adapters/ClientMemoryRepository';
 import CreateClientService from '../../../src/services/client/CreateClient.service';
 import { validClient } from '../../mocks/client.mock';
 

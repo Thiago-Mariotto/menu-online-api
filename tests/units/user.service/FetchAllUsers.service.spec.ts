@@ -1,4 +1,4 @@
-import UserMemoryRepository from '../../../src/repositories/user/UserMemoryRepository';
+import UserMemoryRepository from '../../../src/repositories/user/adapters/UserMemoryRepository';
 import FetchAllUsersService from '../../../src/services/user/FetchAllUsers.service';
 import { usersFromDatabase } from '../../mocks/user.mock';
 

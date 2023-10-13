@@ -1,4 +1,4 @@
-import UserMemoryRepository from '../../../src/repositories/user/UserMemoryRepository';
+import UserMemoryRepository from '../../../src/repositories/user/adapters/UserMemoryRepository';
 import RegisterUserService from '../../../src/services/user/RegisterUser.service';
 import { userFromDatabase, validUser } from '../../mocks/user.mock';
 

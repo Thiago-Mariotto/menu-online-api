@@ -1,4 +1,4 @@
-import ClientMemoryRepository from '../../../src/repositories/client/ClientMemoryRepository';
+import ClientMemoryRepository from '../../../src/repositories/client/adapters/ClientMemoryRepository';
 import FetchClientByIdService from '../../../src/services/client/FetchClientById.service';
 import { clientFromDb } from '../../mocks/client.mock';
 
