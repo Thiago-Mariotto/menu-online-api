@@ -1,13 +1,14 @@
-import {  PrismaClient } from '@prisma/client';
+import ICityRepository from '../../../repositories/address/city/ICityRepository';
 
 export default class CityService {
 
-  constructor(private _orm = new PrismaClient()) {
-    
+  private _cityRepository: ICityRepository;
+  constructor(cityRepository: ICityRepository) {
+    this._cityRepository = cityRepository;
   }
 
   public async getCityByNameOrThrow(cityName: string) {
-    const city = await this._orm.cityModel.findFirst({ where: { name: cityName } });
+    const city = await this._cityRepository.findByCityName(cityName);
     if (!city) throw new Error('City does not exist');
     return city;
   }

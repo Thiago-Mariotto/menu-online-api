@@ -25,6 +25,11 @@ export type TInputAddress = {
   districtId: string;
 }
 
+export type TInputSaveAddress = {
+  districtName: string,
+  cityId: string
+} & Omit<TInputAddress, 'districtId'>;
+
 export type TDistrictInput = {
   name: string;
   cityId: string;
@@ -40,4 +45,23 @@ export type TAddressServices = {
   districtService: DistrictService,
   stateService: StateService,
   cityService: CityService
+}
+
+export type TOutputStateModel = {
+  stateId: string,
+  name: string,
+  uf: string
+}
+
+export type TOutputAddressModel = {
+  addressId: string;
+  cep: string;
+  street: string;
+  districtId: string;
+}
+
+export type TOutputCityModel = {
+  cityId: string,
+  name: string,
+  stateId: string
 }

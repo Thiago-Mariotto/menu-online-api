@@ -1,18 +1,14 @@
-import { PrismaClient } from '@prisma/client';
+import IDistrictRepository from '../../../repositories/address/district/IDistrictRepository';
+import { TDistrictInput } from '../../../types/Address';
 
 export default class DistrictService {
-  
-  constructor(private _orm = new PrismaClient()) {
-    
-  }
-  
-  public async saveDistrict(district: { name: string, cityId: string}) {
-    return await this._orm.districtModel.create({
-      data: {
-        name: district.name,
-        cityId: district.cityId
-      }
-    });
-  }
 
+  private _districtRepository: IDistrictRepository;
+  constructor(districtRepository: IDistrictRepository) {
+    this._districtRepository = districtRepository;
+  }
+  
+  public async saveDistrict(district: TDistrictInput) {
+    return await this._districtRepository.create(district);
+  }
 }
