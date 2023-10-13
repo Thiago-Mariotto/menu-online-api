@@ -1,12 +1,14 @@
+import UserMemoryRepository from '../../../src/repositories/user/UserMemoryRepository';
 import RegisterUserService from '../../../src/services/user/RegisterUser.service';
-import UserDataService from '../../../src/services/user/UserData.service';
 import { userFromDatabase, validUser } from '../../mocks/user.mock';
 
 describe('# Unit - Services => Create User', () => {
   let registerUserService: RegisterUserService;
+  let userMemoryRepository: UserMemoryRepository;
 
   beforeEach(() => {
-    registerUserService = new RegisterUserService();
+    userMemoryRepository = new UserMemoryRepository();
+    registerUserService = new RegisterUserService(userMemoryRepository);
   });
 
   afterEach(() => {
@@ -14,9 +16,9 @@ describe('# Unit - Services => Create User', () => {
   });
 
   test('should create a valid user', async () => {
-    UserDataService.getUserByCPF = jest.fn().mockReturnValueOnce(null);
-    UserDataService.getUserByEmail = jest.fn().mockReturnValueOnce(null);
-    UserDataService.saveUser = jest.fn().mockReturnValueOnce(userFromDatabase);
+    userMemoryRepository.getByEmail = jest.fn().mockReturnValueOnce(null);
+    userMemoryRepository.getByCPF = jest.fn().mockReturnValueOnce(null);
+    userMemoryRepository.save = jest.fn().mockReturnValueOnce(userFromDatabase);
 
     const user = await registerUserService.execute(validUser);
     expect(user).toHaveProperty('userId');
@@ -24,16 +26,16 @@ describe('# Unit - Services => Create User', () => {
   });
 
   test('should not create a user with an existing CPF', async () => {
-    UserDataService.getUserByCPF = jest.fn().mockReturnValueOnce(userFromDatabase);
-    UserDataService.getUserByEmail = jest.fn().mockReturnValueOnce(null);
+    userMemoryRepository.getByCPF = jest.fn().mockReturnValueOnce(userFromDatabase);
+    userMemoryRepository.getByEmail = jest.fn().mockReturnValueOnce(undefined);
 
     await expect(registerUserService.execute(validUser))
       .rejects.toThrow('CPF already registered');
   });
 
   test('should not create a user with an existing email', async () => {
-    UserDataService.getUserByCPF = jest.fn().mockReturnValueOnce(null);
-    UserDataService.getUserByEmail = jest.fn().mockReturnValueOnce(userFromDatabase);
+    userMemoryRepository.getByCPF = jest.fn().mockReturnValueOnce(null);
+    userMemoryRepository.getByEmail = jest.fn().mockReturnValueOnce(userFromDatabase);
 
     await expect(registerUserService.execute(validUser))
       .rejects.toThrow('CPF already registered');

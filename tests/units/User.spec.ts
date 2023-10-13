@@ -2,7 +2,7 @@ import User from "../../src/entities/User";
 import UserBuilder from "../../src/entities/UserBuilder";
 
 describe('# Unit - Entity => User', () => {
-  const userBuild = new UserBuilder('906.789.730-24')
+  const userBuild = new UserBuilder('582.304.650-29')
     .setEmail('john@mail.com')
     .setName('John Doe')
     .setPassword('1234Abc#')

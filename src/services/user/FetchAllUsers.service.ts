@@ -1,11 +1,15 @@
-import { PrismaClient } from '@prisma/client';
+import UserRepository from '../../entities/repositories/UserRepository';
 import removeFields from '../../utils/excludeObjectField';
 
 export default class FetchAllUsersService {
-  private _prisma = new PrismaClient();
+  private _userRepository: UserRepository;
+
+  constructor(userRepository: UserRepository) {
+    this._userRepository = userRepository;
+  }
 
   public async execute() {
-    const users = await this._prisma.userModel.findMany();
+    const users = await this._userRepository.getAll();
     const usersWithoutPassword = users.map(user => {
       return removeFields(user, ['password']);
     });

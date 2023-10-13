@@ -2,7 +2,8 @@ import UserBuilder from "../../src/entities/UserBuilder";
 
 describe('# Unit - Entity => UserBuilder', function () {
   test('should create a valid UserBuilder', function () {
-    const user = new UserBuilder('906.789.730-24')
+
+    const user = new UserBuilder('582.304.650-29')
       .setName('John Doe')
       .setEmail('john.doe@mail.com')
       .setPassword('1234Abc#')
@@ -26,7 +27,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Email', function () {
     expect(() =>
-      new UserBuilder('906.789.730-24')
+      new UserBuilder('582.304.650-29')
         .setName('John Doe')
         .setEmail('john.doe@com')
         .setPassword('1234Abc#')
@@ -38,7 +39,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Password without especial character', function () {
     expect(() =>
-      new UserBuilder('906.789.730-24')
+      new UserBuilder('582.304.650-29')
         .setName('John Doe')
         .setEmail('john.doe@mail.com')
         .setPassword('1234Abc')
@@ -50,7 +51,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Password without number character', function () {
     expect(() =>
-      new UserBuilder('906.789.730-24')
+      new UserBuilder('582.304.650-29')
         .setName('John Doe')
         .setEmail('john.doe@mail.com')
         .setPassword('Abcdefga#')
@@ -62,7 +63,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Password without upper case character', function () {
     expect(() =>
-      new UserBuilder('906.789.730-24')
+      new UserBuilder('582.304.650-29')
         .setName('John Doe')
         .setEmail('john.doe@mail.com')
         .setPassword('abcde123#')
@@ -74,7 +75,7 @@ describe('# Unit - Entity => UserBuilder', function () {
 
   test('should throw an error when create a User with invalid Password without lower case character', function () {
     expect(() =>
-      new UserBuilder('906.789.730-24')
+      new UserBuilder('582.304.650-29')
         .setName('John Doe')
         .setEmail('john.doe@mail.com')
         .setPassword('ABCDEF123#')
