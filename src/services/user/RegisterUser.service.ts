@@ -1,13 +1,14 @@
 import { UserModel } from '@prisma/client';
 import User from '../../entities/User';
 import UserBuilder from '../../entities/UserBuilder';
-import { UserRegisterDTO } from '../../types/User';
+import Conflict from '../../errors/Conflict';
+import { TUserRegisterDTO } from '../../types/User';
 import { IService } from '../IService';
 import UserDataService from './UserData.service';
 
-export default class RegisterUserService implements IService<UserRegisterDTO, UserModel>{
+export default class RegisterUserService implements IService<TUserRegisterDTO, UserModel>{
 
-  public async execute(data: UserRegisterDTO) {
+  public async execute(data: TUserRegisterDTO) {
     const user = new UserBuilder(data.cpf)
       .setName(data.name)
       .setEmail(data.email)
@@ -20,11 +21,11 @@ export default class RegisterUserService implements IService<UserRegisterDTO, Us
 
   private async validateUser(user: User) {
     if (await UserDataService.getUserByCPF(user.cpf.value)) {
-      throw new Error('CPF já cadastrado');
+      throw new Conflict('CPF already registered');
     }
 
     if (await UserDataService.getUserByEmail(user.email.value)) {
-      throw new Error('Email já cadastrado');
+      throw new Conflict('CPF already registered');
     }
   }
 }

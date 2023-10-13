@@ -1,4 +1,4 @@
-export type UserRegisterDTO = {
+export type TUserRegisterDTO = {
   cpf: string;
   name: string;
   email: string;

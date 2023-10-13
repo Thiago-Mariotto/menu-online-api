@@ -1,6 +1,6 @@
 export default class CPF {
   private cpf: string;
-  
+
   private constructor(cpf: string) {
     this.cpf = cpf;
   }

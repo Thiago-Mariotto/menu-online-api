@@ -2,6 +2,7 @@ import UserBuilder from "../../src/entities/UserBuilder";
 
 describe('# Unit - Entity => UserBuilder', function () {
   test('should create a valid UserBuilder', function () {
+
     const user = new UserBuilder('582.304.650-29')
       .setName('John Doe')
       .setEmail('john.doe@mail.com')
@@ -12,7 +13,7 @@ describe('# Unit - Entity => UserBuilder', function () {
     expect(user).toBeDefined();
   });
 
-  test('should throw an error when create a User with invalid CNPJ', function () {
+  test('should throw an error when create a User with invalid CPF', function () {
     expect(() =>
       new UserBuilder('24664052000120')
         .setName('John Doe')
