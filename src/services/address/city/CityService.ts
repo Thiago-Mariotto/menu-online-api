@@ -8,7 +8,7 @@ export default class CityService {
   }
 
   public async getCityByNameOrThrow(cityName: string) {
-    const city = await this._cityRepository.findByCityName(cityName);
+    const city = await this._cityRepository.findByCityNameOrThrow(cityName);
     if (!city) throw new Error('City does not exist');
     return city;
   }

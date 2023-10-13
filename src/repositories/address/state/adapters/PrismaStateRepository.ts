@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 import { TOutputStateModel } from '../../../../types/Address';
-import IStateRepository from '../IStateRepository.ts/IStateRepository';
+import IStateRepository from '../IStateRepository';
 
 export default class PrismaStateRepository implements IStateRepository {
 
   private _orm = new PrismaClient();
   
-  async findByStateId(stateId: string): Promise<TOutputStateModel> {
+  async findByStateIdOrThrow(stateId: string): Promise<TOutputStateModel> {
     const state = await this._orm.stateModel.findFirst({ where: { stateId } });
     if (!state) throw new Error('State does not exist');
     return {
