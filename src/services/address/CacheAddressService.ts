@@ -11,8 +11,9 @@ export default class CacheAddressService implements IService<string, TOutputApiS
 
   constructor(
     private _apiService: IService<string, TOutputApiServiceAddress> = new ViaCepAddressFetcher(),
-    private _orm = new PrismaClient()) { 
+    addressRepository: IAddressRepository) { 
     this.addressServices = this.addressServicesBuilder.buildAddressServices();
+    this._addressRepository = addressRepository;
   }
 
   async execute(cepData: string): Promise<TOutputApiServiceAddress> {
