@@ -88,3 +88,8 @@ model ProductImageModel {
   Product   ProductModel @relation(fields: [productId], references: [productId])
   productId String       @map("product_id")
 }
+
+model PaymentModel {
+  paymentId String @id @default(uuid()) @map("payment_id")
+  name      String @unique @db.VarChar(100)
+}
