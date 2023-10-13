@@ -1,6 +1,6 @@
-import ClientMemoryRepository from '../../../src/repositories/client/adapters/ClientMemoryRepository';
-import FetchClientByIdService from '../../../src/services/client/FetchClientById.service';
-import { clientFromDb } from '../../mocks/client.mock';
+import ClientMemoryRepository from '../../../../src/repositories/client/adapters/ClientMemoryRepository';
+import FetchClientByIdService from '../../../../src/services/client/FetchClientById.service';
+import { clientFromDb } from '../../../mocks/client.mock';
 
 describe('# Unit - services => FetchClientById', () => {
   let createClientService: FetchClientByIdService;

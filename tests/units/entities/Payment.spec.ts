@@ -1,4 +1,4 @@
-import Payment from '../../src/entities/Payment';
+import Payment from '../../../src/entities/Payment';
 
 describe('# Unit - Entity => Payment', function () {
   test('should create a valid Payment', function () {

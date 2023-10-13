@@ -1,4 +1,4 @@
-import CPF from '../../src/entities/valueObjects/CPF';
+import CPF from '../../../../src/entities/valueObjects/CPF';
 
 describe('# Unit - ValueObjects => CPF', function () {
   test('should create a valid CPF', function () {

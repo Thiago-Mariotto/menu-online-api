@@ -1,4 +1,4 @@
-import Name from '../../src/entities/valueObjects/Name';
+import Name from '../../../../src/entities/valueObjects/Name';
 
 describe('# Unit - ValueObjects => Name', function () {
   test('should create a valid Name', function () {

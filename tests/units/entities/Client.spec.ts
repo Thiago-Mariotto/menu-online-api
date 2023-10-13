@@ -1,5 +1,5 @@
-import Client from '../../src/entities/Client';
-import { validClient } from '../mocks/client.mock';
+import Client from '../../../src/entities/Client';
+import { validClient } from '../../mocks/client.mock';
 
 describe('# Unit - Entities => Client', () => {
   test('should create a valid Client', () => {

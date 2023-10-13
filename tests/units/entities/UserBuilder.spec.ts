@@ -1,4 +1,4 @@
-import UserBuilder from "../../src/entities/UserBuilder";
+import UserBuilder from "../../../src/entities/UserBuilder";
 
 describe('# Unit - Entity => UserBuilder', function () {
   test('should create a valid UserBuilder', function () {

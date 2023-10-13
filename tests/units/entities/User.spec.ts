@@ -1,5 +1,5 @@
-import User from "../../src/entities/User";
-import UserBuilder from "../../src/entities/UserBuilder";
+import User from "../../../src/entities/User";
+import UserBuilder from "../../../src/entities/UserBuilder";
 
 describe('# Unit - Entity => User', () => {
   const userBuild = new UserBuilder('582.304.650-29')

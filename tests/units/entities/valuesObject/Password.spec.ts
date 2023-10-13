@@ -1,4 +1,4 @@
-import Password from '../../src/entities/valueObjects/Password';
+import Password from '../../../../src/entities/valueObjects/Password';
 
 describe('# Unit - ValueObjects => Password', function () {
   test('should create a valid Password', function () {

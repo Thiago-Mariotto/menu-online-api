@@ -1,4 +1,4 @@
-import Category from '../../src/entities/Category';
+import Category from '../../../src/entities/Category';
 
 describe('# Unit - Entities => Category', function () {
   it('should create a valid Category', function () {

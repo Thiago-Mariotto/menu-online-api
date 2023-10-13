@@ -1,6 +1,6 @@
-import UserMemoryRepository from '../../../src/repositories/user/adapters/UserMemoryRepository';
-import RegisterUserService from '../../../src/services/user/RegisterUser.service';
-import { userFromDatabase, validUser } from '../../mocks/user.mock';
+import UserMemoryRepository from '../../../../src/repositories/user/adapters/UserMemoryRepository';
+import RegisterUserService from '../../../../src/services/user/RegisterUser.service';
+import { userFromDatabase, validUser } from '../../../mocks/user.mock';
 
 describe('# Unit - Services => Create User', () => {
   let registerUserService: RegisterUserService;

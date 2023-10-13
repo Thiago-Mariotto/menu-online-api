@@ -1,4 +1,4 @@
-import CNPJ from '../../src/entities/valueObjects/CNPJ';
+import CNPJ from '../../../../src/entities/valueObjects/CNPJ';
 
 describe('# Unit - ValueObjects => CNPJ', function () {
   test('should create a valid CNPJ', function () {

@@ -1,6 +1,6 @@
-import PaymentMemoryRepository from '../../../src/repositories/payment/adapters/PaymentMemoryRepository';
-import FetchAllPaymentsService from '../../../src/services/payment/FetchAllPayments.service';
-import { paymentsFromDb } from '../../mocks/payment.mock';
+import PaymentMemoryRepository from '../../../../src/repositories/payment/adapters/PaymentMemoryRepository';
+import FetchAllPaymentsService from '../../../../src/services/payment/FetchAllPayments.service';
+import { paymentsFromDb } from '../../../mocks/payment.mock';
 
 describe('# Unit - Service => FetchAllPayments', function () {
   let fetchAllPaymentsService: FetchAllPaymentsService;
