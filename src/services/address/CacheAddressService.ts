@@ -73,6 +73,6 @@ private _addressRepository: IAddressRepository;
   }
 
   private getAddressByCep(cep: string) {
-    return this._orm.addressModel.findFirst({ where: { cep } });
+    return this._addressRepository.findFirst({ where: { cep } });
   }
 }
