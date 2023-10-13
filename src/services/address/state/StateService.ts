@@ -7,7 +7,7 @@ private _stateRepository: IStateRepository;
   }
 
   public async getStateNameByIdOrThrow(stateId: string) {
-    const state = await this._orm.stateModel.findFirst({ where: { stateId } });
+    const state = await this._stateRepository.findFirst({ where: { stateId } });
     if (!state) throw new Error('State does not exist');
     return state.name;
   }
