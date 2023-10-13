@@ -1,19 +1,18 @@
-import { PrismaClient } from '@prisma/client';
 import Category from '../../entities/Category';
-import { CreatedCategoryDTO, CreationCategoryDTO } from '../../types/Category';
+import CategoryRepository from '../../entities/repositories/CategoryRepository';
+import { TCreatedCategory, TCreationCategoryDTO } from '../../types/Category';
 import { IService } from '../IService';
 
+export default class CreateCategoryService implements IService<TCreationCategoryDTO, TCreatedCategory> {
+  private _categoryRepository: CategoryRepository;
 
-export default class CreateCategoryService implements IService<CreationCategoryDTO, CreatedCategoryDTO> {
-  private _prisma = new PrismaClient();
+  constructor(categoryRepository: CategoryRepository) {
+    this._categoryRepository = categoryRepository;
+  }
 
-  public async execute(categoryDTO: CreationCategoryDTO) {
+  public async execute(categoryDTO: TCreationCategoryDTO) {
     const category = new Category(categoryDTO.name);
-    const createdCategory = this._prisma.categoryModel.create({
-      data: {
-        name: category.name.value,
-      }
-    });
+    const createdCategory = this._categoryRepository.save(category);
     return createdCategory;
   }
 }

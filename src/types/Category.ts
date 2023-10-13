@@ -1,10 +1,8 @@
-export type CreationCategoryDTO = {
+export type TCreationCategoryDTO = {
   name: string;
 };
 
-export type CreatedCategoryDTO = {
+export type TCreatedCategory = {
   categoryId: string;
   name: string;
 };
-
-export type Categories = Array<CreatedCategoryDTO>;

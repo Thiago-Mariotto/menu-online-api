@@ -1,19 +1,22 @@
-import { PrismaClient } from '@prisma/client';
-import Category from '../../entities/Category';
+import CategoryRepository from '../../entities/repositories/CategoryRepository';
+import NotFound from '../../errors/NotFound';
+import { TCreatedCategory } from '../../types/Category';
 import { IService } from '../IService';
 
-export default class FetchCategoryByIdService implements IService<string, Category> {
-  private _prisma = new PrismaClient();
+export default class FetchCategoryByIdService implements IService<string, TCreatedCategory> {
+  private _categoryRepository: CategoryRepository;
+
+  constructor(categoryRepository: CategoryRepository) {
+    this._categoryRepository = categoryRepository;
+  }
 
   public async execute(categoryId: string) {
-    const prismaCategory = await this._prisma.categoryModel.findFirst({
-      where: {
-        categoryId: categoryId,
-      }
-    });
-    if (!prismaCategory) {
-      throw new Error(`Category with id ${categoryId} not found`);
+    const category = await this._categoryRepository.getById(categoryId);
+
+    if (!category) {
+      throw new NotFound(`Category with id ${categoryId} not found`);
     }
-    return new Category(prismaCategory.name);
+
+    return category;
   }
 }
