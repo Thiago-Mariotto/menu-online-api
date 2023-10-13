@@ -8,7 +8,7 @@ export default class CacheAddressService implements IService<string, TOutputApiS
 
   private addressServices: TAddressServices;
   private addressServicesBuilder = AddressServiceBuilder;
-
+private _addressRepository: IAddressRepository;
   constructor(
     private _apiService: IService<string, TOutputApiServiceAddress> = new ViaCepAddressFetcher(),
     addressRepository: IAddressRepository) { 
