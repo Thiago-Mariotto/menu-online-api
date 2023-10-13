@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
 export default class StateService {
-
+private _stateRepository: IStateRepository;
   constructor(private _orm = new PrismaClient()) {
     
   }
