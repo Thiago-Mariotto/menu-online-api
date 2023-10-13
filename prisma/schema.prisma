@@ -94,6 +94,7 @@ model ClientModel {
   name     String @db.VarChar(100)
   email    String @unique @db.VarChar(100)
   phone    String @db.VarChar(20)
+}
 
 model PaymentModel {
   paymentId String @id @default(uuid()) @map("payment_id")
