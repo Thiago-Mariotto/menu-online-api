@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
-import Category from '../../entities/Category';
-import { TCreatedCategory } from '../../types/Category';
-import CategoryRepository from './ICategoryRepository';
+import Category from '../../../entities/Category';
+import { TCreatedCategory } from '../../../types/Category';
+import CategoryRepository from '../ICategoryRepository';
 
 export default class CategoryMemoryRepository implements CategoryRepository {
   private _table: TCreatedCategory[];

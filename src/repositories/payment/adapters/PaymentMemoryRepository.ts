@@ -1,5 +1,5 @@
-import { TCreatedPayment } from '../../types/Payment';
-import PaymentRepository from './IPaymentRespository';
+import { TCreatedPayment } from '../../../types/Payment';
+import PaymentRepository from '../IPaymentRespository';
 
 export default class PaymentMemoryRepository implements PaymentRepository {
   private _table: TCreatedPayment[];

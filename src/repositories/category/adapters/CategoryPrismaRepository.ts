@@ -1,8 +1,8 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { DefaultArgs } from '@prisma/client/runtime/library';
-import Category from '../../entities/Category';
-import { TCreatedCategory } from '../../types/Category';
-import CategoryRepository from './ICategoryRepository';
+import Category from '../../../entities/Category';
+import { TCreatedCategory } from '../../../types/Category';
+import CategoryRepository from '../ICategoryRepository';
 
 export default class CategoryPrismaRepository implements CategoryRepository {
   private _prisma: PrismaClient;

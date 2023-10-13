@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
-import Client from '../../entities/Client';
-import { TCreatedClient } from '../../types/Client';
-import IClientRepository from './IClientRepository';
+import Client from '../../../entities/Client';
+import { TCreatedClient } from '../../../types/Client';
+import IClientRepository from '../IClientRepository';
 
 export default class ClientMemoryRepository implements IClientRepository {
   private _table: TCreatedClient[];

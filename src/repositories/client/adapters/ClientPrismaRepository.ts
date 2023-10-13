@@ -1,8 +1,8 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { DefaultArgs } from '@prisma/client/runtime/library';
-import Client from '../../entities/Client';
-import { TCreatedClient } from '../../types/Client';
-import IClientRepository from './IClientRepository';
+import Client from '../../../entities/Client';
+import { TCreatedClient } from '../../../types/Client';
+import IClientRepository from '../IClientRepository';
 
 export default class ClientPrismaRepository implements IClientRepository {
   private _prisma: PrismaClient;

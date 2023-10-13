@@ -1,7 +1,7 @@
 import User from '../../entities/User';
 import UserBuilder from '../../entities/UserBuilder';
 import Conflict from '../../errors/Conflict';
-import UserMemoryRepository from '../../repositories/user/UserMemoryRepository';
+import UserMemoryRepository from '../../repositories/user/adapters/UserMemoryRepository';
 import UserRepository from '../../repositories/user/UserRepository';
 import { TCreationUserDTO, TUserCreated } from '../../types/User';
 import { IService } from '../IService';
