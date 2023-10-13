@@ -1,5 +1,5 @@
-import CategoryRepository from '../../entities/repositories/CategoryRepository';
 import NotFound from '../../errors/NotFound';
+import CategoryRepository from '../../repositories/category/ICategoryRepository';
 import { TCreatedCategory } from '../../types/Category';
 import { IService } from '../IService';
 

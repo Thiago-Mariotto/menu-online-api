@@ -1,5 +1,5 @@
-import UserRepository from '../../entities/repositories/UserRepository';
 import NotFound from '../../errors/NotFound';
+import UserRepository from '../../repositories/user/UserRepository';
 import removeFields from '../../utils/excludeObjectField';
 
 export default class FetchUserByIdService {

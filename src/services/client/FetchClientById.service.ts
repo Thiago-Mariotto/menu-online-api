@@ -1,5 +1,5 @@
-import IClientRepository from '../../entities/repositories/ClientRepository';
 import NotFound from '../../errors/NotFound';
+import IClientRepository from '../../repositories/client/IClientRepository';
 import { TCreatedClient } from '../../types/Client';
 import { IService } from '../IService';
 

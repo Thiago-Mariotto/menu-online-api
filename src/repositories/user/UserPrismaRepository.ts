@@ -1,8 +1,8 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { DefaultArgs } from '@prisma/client/runtime/library';
 import User from '../../entities/User';
-import UserRepository from '../../entities/repositories/UserRepository';
 import { TUserCreated } from '../../types/User';
+import UserRepository from './UserRepository';
 
 export default class UserPrismaRepository implements UserRepository {
   private _prisma: PrismaClient;

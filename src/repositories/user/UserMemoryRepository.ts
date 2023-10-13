@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import User from '../../entities/User';
-import UserRepository from '../../entities/repositories/UserRepository';
 import { TUserCreated } from '../../types/User';
+import UserRepository from './UserRepository';
 
 export default class UserMemoryRepository implements UserRepository {
   private _userDb: TUserCreated[];

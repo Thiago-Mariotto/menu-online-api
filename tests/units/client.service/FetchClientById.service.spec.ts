@@ -1,5 +1,5 @@
+import ClientMemoryRepository from '../../../src/repositories/client/ClientMemoryRepository';
 import FetchClientByIdService from '../../../src/services/client/FetchClientById.service';
-import ClientMemoryRepository from '../../../src/services/repositories/client/ClientMemoryRepository';
 import { clientFromDb } from '../../mocks/client.mock';
 
 describe('# Unit - services => FetchClientById', () => {

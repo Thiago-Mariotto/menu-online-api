@@ -1,4 +1,4 @@
-import CategoryRepository from '../../entities/repositories/CategoryRepository';
+import CategoryRepository from '../../repositories/category/ICategoryRepository';
 import { TCreatedCategory } from '../../types/Category';
 import { IService } from '../IService';
 

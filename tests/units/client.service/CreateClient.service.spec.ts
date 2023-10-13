@@ -1,5 +1,5 @@
+import ClientMemoryRepository from '../../../src/repositories/client/ClientMemoryRepository';
 import CreateClientService from '../../../src/services/client/CreateClient.service';
-import ClientMemoryRepository from '../../../src/services/repositories/client/ClientMemoryRepository';
 import { validClient } from '../../mocks/client.mock';
 
 describe('# Unit - Services => CreateClient', () => {

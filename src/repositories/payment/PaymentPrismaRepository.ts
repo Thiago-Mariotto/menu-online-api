@@ -1,7 +1,7 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { DefaultArgs } from '@prisma/client/runtime/library';
-import PaymentRepository from '../../entities/repositories/PaymentRespository';
 import { TCreatedPayment } from '../../types/Payment';
+import PaymentRepository from './IPaymentRespository';
 
 export default class PaymentPrismaRepository implements PaymentRepository {
   private _prisma: PrismaClient;

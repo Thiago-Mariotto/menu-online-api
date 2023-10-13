@@ -1,5 +1,5 @@
 import Category from '../../entities/Category';
-import CategoryRepository from '../../entities/repositories/CategoryRepository';
+import CategoryRepository from '../../repositories/category/ICategoryRepository';
 import { TCreatedCategory, TCreationCategoryDTO } from '../../types/Category';
 import { IService } from '../IService';
 

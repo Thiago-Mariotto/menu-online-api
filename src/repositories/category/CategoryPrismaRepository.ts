@@ -1,7 +1,8 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { DefaultArgs } from '@prisma/client/runtime/library';
-import CategoryRepository from '../../entities/repositories/CategoryRepository';
-import { TCategoryCreated, TCreationCategoryDTO } from '../../types/Category';
+import Category from '../../entities/Category';
+import { TCreatedCategory } from '../../types/Category';
+import CategoryRepository from './ICategoryRepository';
 
 export default class CategoryPrismaRepository implements CategoryRepository {
   private _prisma: PrismaClient;
@@ -12,20 +13,20 @@ export default class CategoryPrismaRepository implements CategoryRepository {
     this._categoryModel = this._prisma.categoryModel;
   }
 
-  getAll(): Promise<TCategoryCreated[] | []> {
+  getAll(): Promise<TCreatedCategory[] | []> {
     return this._categoryModel.findMany();
   }
 
-  getById(id: string): Promise<TCategoryCreated | null> {
+  getById(id: string): Promise<TCreatedCategory | null> {
     return this._categoryModel.findUnique({ where: { categoryId: id } }) || null;
   }
 
-  getByName(name: string): Promise<TCategoryCreated | null> {
+  getByName(name: string): Promise<TCreatedCategory | null> {
     return this._categoryModel.findFirst({ where: { name } }) || null;
   }
 
-  save(category: TCreationCategoryDTO): Promise<TCategoryCreated> {
-    return this._categoryModel.create({ data: { name: category.name } });
+  save(category: Category): Promise<TCreatedCategory> {
+    return this._categoryModel.create({ data: { name: category.name.value } });
   }
 
 }
