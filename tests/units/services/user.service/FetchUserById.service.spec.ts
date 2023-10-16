@@ -1,6 +1,6 @@
-import UserMemoryRepository from '../../../src/repositories/user/adapters/UserMemoryRepository';
-import FetchUserByIdService from '../../../src/services/user/FetchUserById.service';
-import { userFromDatabase } from '../../mocks/user.mock';
+import UserMemoryRepository from '../../../../src/repositories/user/adapters/UserMemoryRepository';
+import FetchUserByIdService from '../../../../src/services/user/FetchUserById.service';
+import { userFromDatabase } from '../../../mocks/user.mock';
 
 describe('# Unit - Services => Fetch All Users', () => {
   let fetchUserByIdService: FetchUserByIdService;
