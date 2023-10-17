@@ -1,8 +1,8 @@
-import { TCreationPayloadDTO } from '../../types/Login';
+import { TCreatedPayload, TCreationPayloadDTO } from '../../types/Login';
 
 interface IAuth {
   generateToken(payload: TCreationPayloadDTO): string;
-  validateToken(token: string): TCreationPayloadDTO;
+  validateToken(token: string): TCreatedPayload;
 }
 
 export default IAuth;

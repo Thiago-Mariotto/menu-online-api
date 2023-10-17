@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { TCreationPayloadDTO } from '../../../types/Login';
+import { TCreatedPayload, TCreationPayloadDTO } from '../../../types/Login';
 import IAuth from '../IAuth';
 
 export default class JWT implements IAuth {
@@ -16,8 +16,8 @@ export default class JWT implements IAuth {
     return token;
   }
 
-  public validateToken(token: string): TCreationPayloadDTO {
-    const payload = jwt.verify(token, this._SECRET_AUTH) as TCreationPayloadDTO;
+  public validateToken(token: string): TCreatedPayload {
+    const payload = jwt.verify(token, this._SECRET_AUTH) as TCreatedPayload;
     return payload;
   }
 }
