@@ -1,15 +1,18 @@
 import User from '../../entities/User';
 import UserBuilder from '../../entities/UserBuilder';
 import Conflict from '../../errors/Conflict';
+import IHash from '../../repositories/hash/IHash';
 import UserRepository from '../../repositories/user/UserRepository';
 import { TCreationUserDTO, TUserCreated } from '../../types/User';
 import { IService } from '../IService';
 
 export default class RegisterUserService implements IService<TCreationUserDTO, TUserCreated>{
   private _userRepository: UserRepository;
+  private _hashRepository: IHash;
 
-  constructor(userRepository: UserRepository) {
+  constructor(userRepository: UserRepository, hashRepository: IHash) {
     this._userRepository = userRepository;
+    this._hashRepository = hashRepository;
   }
 
   public async execute(data: TCreationUserDTO) {
@@ -19,6 +22,8 @@ export default class RegisterUserService implements IService<TCreationUserDTO, T
       .setPassword(data.password)
       .setPhone(data.phone)
       .build();
+    const hashedPassword = this._hashRepository.generateHash(user.password.value);
+    user.password = hashedPassword;
     await this.validateUser(user);
     return await this._userRepository.save(user);
   }
