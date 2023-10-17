@@ -9,6 +9,13 @@ export type TCreationPayloadDTO = {
   name: string;
 }
 
+export type TCreatedPayload = {
+  id: string;
+  role: string;
+  name: string;
+  iat: number;
+}
+
 export type TToken = {
   token: string;
 }
