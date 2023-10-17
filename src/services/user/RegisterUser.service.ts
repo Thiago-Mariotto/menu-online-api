@@ -1,7 +1,6 @@
 import User from '../../entities/User';
 import UserBuilder from '../../entities/UserBuilder';
 import Conflict from '../../errors/Conflict';
-import UserMemoryRepository from '../../repositories/user/adapters/UserMemoryRepository';
 import UserRepository from '../../repositories/user/UserRepository';
 import { TCreationUserDTO, TUserCreated } from '../../types/User';
 import { IService } from '../IService';
@@ -34,16 +33,3 @@ export default class RegisterUserService implements IService<TCreationUserDTO, T
     }
   }
 }
-
-const newUser: TCreationUserDTO = {
-  cpf: '43545679896',
-  name: 'John Doe',
-  email: 'joh@mail.com',
-  password: '1234Abcd##',
-  phone: '12992187230'
-};
-
-const userRepository = new UserMemoryRepository();
-const registerUserService = new RegisterUserService(userRepository);
-registerUserService.execute(newUser);
-
