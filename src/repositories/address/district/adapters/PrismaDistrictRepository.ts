@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { TDistrictInput, TDistrictCreated } from '../../../../types/Address';
+import { TDistrictInput, TDistrictCreated, TEagerDistrictOutput } from '../../../../types/Address';
 import IDistrictRepository from '../IDistrictRepository';
 
 export default class PrismaDistrictRepository implements IDistrictRepository {
@@ -19,4 +19,12 @@ export default class PrismaDistrictRepository implements IDistrictRepository {
       name: createdDistrict.name
     };
   }
+
+  async findByDistrictIdOrThrow(districtId: string): Promise<TEagerDistrictOutput> {
+    const district = await this._orm.districtModel.findFirst({ where: { districtId },
+      include: { City: { include: { State: true } } } });
+    if (!district) throw new Error('District does not exist');
+    return district;
+  }
+
 }

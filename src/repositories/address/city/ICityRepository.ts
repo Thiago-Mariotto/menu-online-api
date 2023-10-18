@@ -1,7 +1,8 @@
 import { TOutputCityModel } from '../../../types/Address';
 
 interface ICityRepository {
-  findByCityName(cityName: string): Promise<TOutputCityModel>
+  findByCityNameOrThrow(cityName: string): Promise<TOutputCityModel>
+  findByCityIdOrThrow(cityId: string): Promise<TOutputCityModel>
 }
 
 export default ICityRepository;

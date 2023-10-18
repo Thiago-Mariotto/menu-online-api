@@ -65,3 +65,21 @@ export type TOutputCityModel = {
   name: string,
   stateId: string
 }
+
+export type TEagerDistrictOutput = {
+  City: {
+      State: {
+          stateId: string;
+          name: string;
+          uf: string;
+      };
+  } & {
+      cityId: string;
+      name: string;
+      stateId: string;
+  };
+} & {
+  districtId: string;
+  name: string;
+  cityId: string;
+}
