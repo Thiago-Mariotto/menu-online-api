@@ -1,3 +1,5 @@
+import IHash from '../../../../src/repositories/hash/IHash';
+import Bcrypt from '../../../../src/repositories/hash/adapters/Bcrypt';
 import UserMemoryRepository from '../../../../src/repositories/user/adapters/UserMemoryRepository';
 import RegisterUserService from '../../../../src/services/user/RegisterUser.service';
 import { userFromDatabase, validUser } from '../../../mocks/user.mock';
@@ -5,10 +7,12 @@ import { userFromDatabase, validUser } from '../../../mocks/user.mock';
 describe('# Unit - Services => Create User', () => {
   let registerUserService: RegisterUserService;
   let userMemoryRepository: UserMemoryRepository;
+  let hashRepository: IHash;
 
   beforeEach(() => {
+    hashRepository = new Bcrypt();
     userMemoryRepository = new UserMemoryRepository();
-    registerUserService = new RegisterUserService(userMemoryRepository);
+    registerUserService = new RegisterUserService(userMemoryRepository, hashRepository);
   });
 
   afterEach(() => {
