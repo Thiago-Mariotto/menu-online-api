@@ -1,6 +1,6 @@
 import Client from '../../entities/Client';
-import IClientRepository from '../../entities/repositories/ClientRepository';
 import Conflict from '../../errors/Conflict';
+import IClientRepository from '../../repositories/client/IClientRepository';
 import { TCreatedClient, TCreationClientDTO } from '../../types/Client';
 import { IService } from '../IService';
 

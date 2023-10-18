@@ -47,3 +47,10 @@ export const usersFromDatabase: TUserCreated[] = [
     role: 'user'
   },
 ]
+
+export const userLogin = {
+  email: 'john@mail.com',
+  password: '1234Abc##'
+};
+
+export const hashedPassword = '$2b$10$VKuzU22iKKoNWVmAKR5fkO4UGb1TKDg.hxWOF4VmtOybsJf9o1Uye'; // 1234Abc##

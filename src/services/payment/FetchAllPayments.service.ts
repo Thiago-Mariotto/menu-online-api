@@ -1,4 +1,4 @@
-import IPaymentRepository from '../../entities/repositories/PaymentRespository';
+import IPaymentRepository from '../../repositories/payment/IPaymentRespository';
 import { TCreatedPayment } from '../../types/Payment';
 import { IService } from '../IService';
 
