@@ -1,3 +1,5 @@
+import BadRequest from "../../errors/BadRequest";
+
 export default class Name {
   private name: string;
 
@@ -12,7 +14,7 @@ export default class Name {
   }
 
   public static fromString(name: string) {
-    if (!Name.isAValidName(name)) throw new Error('Invalid Name');
+    if (!Name.isAValidName(name)) throw new BadRequest('Invalid Name');
     return new Name(name);
   }
 

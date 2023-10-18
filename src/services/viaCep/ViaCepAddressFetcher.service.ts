@@ -1,3 +1,4 @@
+import NotFound from '../../errors/NotFound';
 import { TOutputApiServiceAddress } from '../../types/Address';
 import requester from '../../utils/requester';
 import { IService } from '../IService';
@@ -13,7 +14,7 @@ export default class ViaCepAddressFetcher implements IService<string, TOutputApi
       const { data } = response;
       return AddressParser.parseAddress(data);
     } catch (err) {
-      throw new Error('Cep not found');
+      throw new NotFound('Cep not found');
     }
   }
 }

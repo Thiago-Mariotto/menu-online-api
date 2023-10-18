@@ -1,3 +1,5 @@
+import BadRequest from "../../errors/BadRequest";
+
 export default class Password {
   private password: string;
 
@@ -12,7 +14,7 @@ export default class Password {
   }
 
   public static fromString(password: string) {
-    if (!Password.isAValidPassword(password)) throw new Error('Invalid Password');
+    if (!Password.isAValidPassword(password)) throw new BadRequest('Invalid Password');
     return new Password(password);
   }
 

@@ -1,3 +1,4 @@
+import NotFound from '../../../../errors/NotFound';
 import { TOutputStateModel } from '../../../../types/Address';
 import IStateRepository from '../IStateRepository';
 
@@ -10,7 +11,7 @@ export default class InMemoryStateRepository implements IStateRepository {
 
   async findByStateIdOrThrow(stateId: string): Promise<TOutputStateModel> {
     const state = this._states.find(state => state.stateId === stateId);
-    if (!state) throw new Error('State does not exist');
+    if (!state) throw new NotFound('State does not exist');
     return state;
   }
 
