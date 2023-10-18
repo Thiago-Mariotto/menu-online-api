@@ -1,12 +1,25 @@
-import express, { Request, Response } from 'express';
-import AddressController from './controllers/address/adapters/AddressController';
+import express, { NextFunction, Request, Response } from 'express';
+import HttpError from '../../../errors/HttpError';
+import router from './routes';
 
 const app = express();
 
+
 app.use(express.json());
+app.use('/api', router);
 
-const addressController = new AddressController();
+app.use((err: HttpError, req: Request, res: Response, _next: NextFunction) => {
+  if (err instanceof HttpError) {
+    return res.status(err.statusCode).json({
+      name: err.name,
+      message: err.message
+    });
+  }
 
-app.post('/', (req: Request, res: Response) => addressController.registerAddress(req, res));
+  return res.status(500).json({
+    name: 'InternalServerError',
+    message: 'Internal Server Error'
+  });
+});
 
-app.listen(3000, () => console.log('Server is running on port 3000'));
+export default app;
