@@ -42,7 +42,7 @@ describe('# Unit - Services => Create User', () => {
     userMemoryRepository.getByEmail = jest.fn().mockReturnValueOnce(userFromDatabase);
 
     await expect(registerUserService.execute(validUser))
-      .rejects.toThrow('CPF already registered');
+      .rejects.toThrow('Email already registered');
   });
 
   test('should not create a user with an invalid CPF', async () => {
