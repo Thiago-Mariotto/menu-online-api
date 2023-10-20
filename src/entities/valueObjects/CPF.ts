@@ -17,7 +17,7 @@ export default class CPF {
   }
 
   private static validCpf(cpf: string) {
-    if (!cpf) return false;
+    if (!cpf) throw new BadRequest('CPF is required');
     cpf = CPF.cleanCpf(cpf);
     if (!CPF.isValidLength(cpf)) return false;
     if (CPF.hasAllDigitsEqual(cpf)) return false;

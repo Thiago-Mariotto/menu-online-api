@@ -8,9 +8,7 @@ export default class CNPJ {
   }
 
   static fromString(value: string): CNPJ {
-    if (!value) {
-      throw new BadRequest('CNPJ is required');
-    }
+    if (!value) throw new BadRequest('CNPJ is required');
 
     if (!value.match(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)) {
       throw new BadRequest('Invalid CNPJ');
