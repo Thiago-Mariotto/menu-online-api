@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import NotFound from '../../../errors/NotFound';
 import { TInputAddress, TOutputApiServiceAddress } from '../../../types/Address';
 import IAddressRepository from '../IAddressRepository';
 
@@ -10,7 +11,7 @@ export default class PrismaAddressAdapter implements IAddressRepository {
     const address = await this._orm.addressModel.findFirst({ where: { cep: cepData }, 
       include: { District: { include: { City: { 
         include: { State: true } } } } } });
-    if (!address) throw new Error('Address does not exist');
+    if (!address) throw new NotFound('Address does not exist');
     return {
       cityName: address.District.City.name,
       districtName: address.District.name,
@@ -27,7 +28,7 @@ export default class PrismaAddressAdapter implements IAddressRepository {
     const district = await this._orm.districtModel.findFirst(
       { where: { districtId: newAddress.districtId }, 
         include: { City: { include: { State: true } } } });
-    if (!district) throw new Error('District does not exist');
+    if (!district) throw new NotFound('District does not exist');
 
     return {
       districtName: district.name,

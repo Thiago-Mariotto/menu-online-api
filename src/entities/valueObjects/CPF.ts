@@ -1,3 +1,5 @@
+import BadRequest from '../../errors/BadRequest';
+
 export default class CPF {
   private cpf: string;
 
@@ -6,7 +8,7 @@ export default class CPF {
   }
 
   static fromString(value: string): CPF {
-    if (!CPF.validCpf(value)) throw new Error('Invalid CPF');
+    if (!CPF.validCpf(value)) throw new BadRequest('Invalid CPF');
     return new CPF(CPF.formatCPF(value));
   }
 

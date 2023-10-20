@@ -1,3 +1,5 @@
+import BadRequest from '../../errors/BadRequest';
+
 export default class Email {
   private email: string;
 
@@ -10,7 +12,7 @@ export default class Email {
   }
 
   public static fromString(email: string) {
-    if (!Email.isAValidEmail(email)) throw new Error('Invalid Email');
+    if (!Email.isAValidEmail(email)) throw new BadRequest('Invalid Email');
     return new Email(email);
   }
 

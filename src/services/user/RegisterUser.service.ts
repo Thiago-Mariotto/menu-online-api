@@ -34,7 +34,7 @@ export default class RegisterUserService implements IService<TCreationUserDTO, T
     }
 
     if (await this._userRepository.getByEmail(user.email.value)) {
-      throw new Conflict('CPF already registered');
+      throw new Conflict('Email already registered');
     }
   }
 }

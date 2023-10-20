@@ -1,3 +1,4 @@
+import BadRequest from '../errors/BadRequest';
 import AuthenticatableUser from './AuthenticableUser';
 import UserBuilder from './UserBuilder';
 import CPF from './valueObjects/CPF';
@@ -76,7 +77,7 @@ export default class User {
 
   set role(role: string) {
     if (role !== 'admin' && role !== 'user') {
-      throw new Error('Invalid role');
+      throw new BadRequest('Invalid role');
     }
     this._role = role;
   }

@@ -1,3 +1,4 @@
+import NotFound from '../../../errors/NotFound';
 import { TOutputApiServiceAddress, TInputAddress } from '../../../types/Address';
 import IAddressRepository from '../IAddressRepository';
 import InMemoryDistrictRepository from '../district/adapters/InMemoryDistrictRepository';
@@ -13,7 +14,7 @@ export default class InMemoryAddressRepository implements IAddressRepository {
   
   async getAddressByCEPOrThrow(cepData: string): Promise<TOutputApiServiceAddress> {
     const address = this.addresses.find(address => address.cep === cepData);
-    if (!address) throw new Error('Address does not exist');
+    if (!address) throw new NotFound('Address does not exist');
     return address;
   }
 
