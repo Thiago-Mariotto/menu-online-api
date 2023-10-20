@@ -12,7 +12,7 @@ export default class CreateCategoryService implements IService<TCreationCategory
 
   public async execute(categoryDTO: TCreationCategoryDTO) {
     const category = new Category(categoryDTO.name);
-    const createdCategory = this._categoryRepository.save(category);
+    const createdCategory = await this._categoryRepository.save(category);
     return createdCategory;
   }
 }
