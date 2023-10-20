@@ -7,7 +7,7 @@ describe('# Unit - ValueObjects => CPF', function () {
   });
 
   test('should throw an error when CPF is empty', function () {
-    expect(() => CPF.fromString('')).toThrow('Invalid CPF');
+    expect(() => CPF.fromString('')).toThrow('CPF is required');
   });
 
   test('should throw an error when CPF is invalid', function () {
