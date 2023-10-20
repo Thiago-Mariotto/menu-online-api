@@ -13,5 +13,7 @@ userRouter.get('/:userId', (req: Request, res: Response, next: NextFunction) =>
 userRouter.post('/', (req: Request, res: Response, next: NextFunction) =>
   userController.registerUser(req, res, next));
 
+userRouter.post('/login', (req: Request, res: Response, next: NextFunction) =>
+  userController.userLogin(req, res, next));
 
 export default userRouter;
