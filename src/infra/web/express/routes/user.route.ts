@@ -10,8 +10,8 @@ import RegisterUserService from '../../../../services/user/RegisterUser.service'
 import UserController from '../controllers/user/adapters/UserController';
 
 const SECRET_KEY = process.env.SECRET_KEY || 'secret';
-const userRepository = process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development' ?
-  new UserMemoryRepository() : new UserPrismaRepository;
+const userRepository = process.env.NODE_ENV === 'test' ?
+  new UserMemoryRepository() : new UserPrismaRepository();
 const hashRepository = new Bcrypt();
 const authRepository = new JWT(SECRET_KEY);
 

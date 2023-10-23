@@ -6,7 +6,7 @@ import FetchPaymentByIdService from '../../../../services/payment/FetchPaymentBy
 import PaymentController from '../controllers/payment/adapters/PaymentController';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const paymentRepository = NODE_ENV === 'test' || NODE_ENV === 'development' ?
+const paymentRepository = NODE_ENV === 'test' ?
   new PaymentMemoryRepository() : new PaymentPrismaRepository();
 
 const fetchAllPaymentsService = new FetchAllPaymentsService(paymentRepository);

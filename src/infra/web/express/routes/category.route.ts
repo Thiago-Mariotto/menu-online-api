@@ -8,7 +8,7 @@ import FetchCategoryByIdService from '../../../../services/categories/FetchCateg
 import CategoryController from '../controllers/category/adapters/CategoryController';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const categoryRepository = NODE_ENV === 'test' || NODE_ENV === 'development' ?
+const categoryRepository = NODE_ENV === 'test' ?
   new CategoryMemoryRepository() : new CategoryPrismaRepository();
 const createCategoryService = new CreateCategoryService(categoryRepository);
 const fetchAllCategoriesService = new FetchAllCategoriesService(categoryRepository);

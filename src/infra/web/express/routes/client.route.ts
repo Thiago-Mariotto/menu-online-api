@@ -6,7 +6,7 @@ import FetchClientByIdService from '../../../../services/client/FetchClientById.
 import ClientController from '../controllers/client/adapters/ClientController';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const clientRepository = NODE_ENV === 'test' || NODE_ENV === 'development' ?
+const clientRepository = NODE_ENV === 'test' ?
   new ClientMemoryRepository() : new ClientPrismaRepository();
 
 const createClientService = new CreateClientService(clientRepository);

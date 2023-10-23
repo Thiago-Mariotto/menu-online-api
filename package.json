@@ -11,7 +11,7 @@
     "test:integration": "NODE_ENV=test jest --testMatch **/*.test.ts",
     "test:coverage": "jest --coverage",
     "lint": "yarn eslint --ext .ts .",
-    "dev": "ts-node-dev ./src/infra/web/express/server.ts"
+    "dev": "NODE_ENV=development ts-node-dev ./src/infra/web/express/server.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seeds/index.ts"
