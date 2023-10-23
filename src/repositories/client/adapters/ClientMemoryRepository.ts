@@ -20,7 +20,6 @@ export default class ClientMemoryRepository implements IClientRepository {
 
   public async save(client: Client): Promise<TCreatedClient> {
     const clientId = uuid();
-
     const newClient = {
       clientId,
       name: client.name.value,
@@ -28,7 +27,7 @@ export default class ClientMemoryRepository implements IClientRepository {
       email: client.email.value,
     };
 
-    this._table.push();
+    this._table.push(newClient);
     return newClient;
   }
 }
