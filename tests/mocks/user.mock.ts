@@ -8,6 +8,14 @@ export const validUser: TCreationUserDTO = {
   phone: '(11) 99999-9999'
 }
 
+export const validUser2: TCreationUserDTO = {
+  name: 'Ada Lovelace',
+  email: 'ada@mail.com',
+  password: '1234Abc##',
+  cpf: '278.665.020-80',
+  phone: '(12) 87711-1516'
+}
+
 export const userFromDatabase: TUserCreated = {
   userId: '96c1b233-7a87-4c40-979f-cca7acc6d4b8',
   cpf: '439.333.610-01',
