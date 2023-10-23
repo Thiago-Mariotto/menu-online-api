@@ -1,23 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
-import ICategoryRepository from '../../../../../../repositories/category/ICategoryRepository';
-import CategoryMemoryRepository from '../../../../../../repositories/category/adapters/CategoryMemoryRepository';
 import CreateCategoryService from '../../../../../../services/categories/CreateCategory.service';
+import FetchAllCategoriesService from '../../../../../../services/categories/FetchAllCategories.service';
+import FetchCategoryByIdService from '../../../../../../services/categories/FetchCategoryById.service';
 import { TCreationCategoryDTO } from '../../../../../../types/Category';
 
 export default class CategoryController {
-  private _categoryRepository: ICategoryRepository;
-  private _createCategoryService: CreateCategoryService;
 
-  constructor() {
-    this._categoryRepository = new CategoryMemoryRepository();
-    this._createCategoryService = new CreateCategoryService(this._categoryRepository);
-  }
+  constructor(
+    private readonly _createCategoryService: CreateCategoryService,
+    private readonly _fetchAllCategoriesService: FetchAllCategoriesService,
+    private readonly _fetchCategoryByIdService: FetchCategoryByIdService
+  ) { }
 
   async registerCategory(req: Request, res: Response, next: NextFunction) {
     try {
       const categoryData = req.body as TCreationCategoryDTO;
-      await this._createCategoryService.execute(categoryData);
-      return res.status(201).json({ message: 'Category created successfully' });
+      const { categoryId } = await this._createCategoryService.execute(categoryData);
+      return res.status(201).json({ categoryId, message: 'Category created successfully' });
     } catch (err) {
       next(err);
     }
@@ -25,7 +24,7 @@ export default class CategoryController {
 
   async listCategories(req: Request, res: Response, next: NextFunction) {
     try {
-      const categories = await this._categoryRepository.getAll();
+      const categories = await this._fetchAllCategoriesService.execute();
       return res.status(200).json(categories);
     } catch (err) {
       next(err);
@@ -35,7 +34,7 @@ export default class CategoryController {
   async findCategory(req: Request, res: Response, next: NextFunction) {
     try {
       const { categoryId } = req.params;
-      const category = await this._categoryRepository.getById(categoryId);
+      const category = await this._fetchCategoryByIdService.execute(categoryId);
       return res.status(200).json(category);
     } catch (err) {
       next(err);

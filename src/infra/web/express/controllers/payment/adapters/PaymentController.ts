@@ -1,19 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import IPaymentRepository from '../../../../../../repositories/payment/IPaymentRespository';
-import PaymentMemoryRepository from '../../../../../../repositories/payment/adapters/PaymentMemoryRepository';
 import FetchAllPaymentsService from '../../../../../../services/payment/FetchAllPayments.service';
 import FetchPaymentByIdService from '../../../../../../services/payment/FetchPaymentById.service';
 
 export default class PaymentController {
-  private _paymentRepository: IPaymentRepository;
-  private _fetchPaymentByIdService: FetchPaymentByIdService;
-  private _fetchAllPaymentsService: FetchAllPaymentsService;
-
-  constructor() {
-    this._paymentRepository = new PaymentMemoryRepository();
-    this._fetchPaymentByIdService = new FetchPaymentByIdService(this._paymentRepository);
-    this._fetchAllPaymentsService = new FetchAllPaymentsService(this._paymentRepository);
-  }
+  constructor(
+    private readonly _fetchAllPaymentsService: FetchAllPaymentsService,
+    private readonly _fetchPaymentByIdService: FetchPaymentByIdService,
+  ) { }
 
   async listPayments(req: Request, res: Response, next: NextFunction) {
     try {
