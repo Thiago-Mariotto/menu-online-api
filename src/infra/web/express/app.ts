@@ -10,7 +10,6 @@ app.use('/api', router);
 
 app.use((err: HttpError, req: Request, res: Response, _next: NextFunction) => {
   if (err.statusCode) {
-    console.log('Error: ', err);
     return res.status(err.statusCode).json({
       name: err.name,
       message: err.message
