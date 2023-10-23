@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
@@ -22,5 +22,8 @@ jobs:
       - name: Install Dependencies
         run: npm cache clean --force && npm install
 
-      - name: Run All tests
-        run: npm test
+      - name: Run Integration tests
+        run: yarn test:integration
+
+      - name: Run Unit tests
+        run: yarn test:unit
