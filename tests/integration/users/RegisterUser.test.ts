@@ -19,6 +19,15 @@ describe('# Integration - User - Create', function () {
     expect(response.body.message).toBe('Invalid Email');
   });
 
+  test('should not be possible register a new user without email', async function () {
+    const response = await requester(app)
+      .post('/api/users')
+      .send({ ...validUser, email: '' })
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Email is required');
+  });
+
   test('should not be possible register a new user with invalid password', async function () {
     const response = await requester(app)
       .post('/api/users')
@@ -26,6 +35,24 @@ describe('# Integration - User - Create', function () {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('Invalid Password');
+  });
+
+  test('should not be possible register a new user without password', async function () {
+    const response = await requester(app)
+      .post('/api/users')
+      .send({ ...validUser, password: '' })
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Password is required');
+  });
+
+  test('should not be possible register a new user without name', async function () {
+    const response = await requester(app)
+      .post('/api/users')
+      .send({ ...validUser, name: '' })
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('Name is required');
   });
 
   test('should not be possible register a new user with invalid name', async function () {
@@ -45,6 +72,16 @@ describe('# Integration - User - Create', function () {
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('Invalid CPF');
   });
+
+  test('should not be possible register a new user without cpf', async function () {
+    const response = await requester(app)
+      .post('/api/users')
+      .send({ ...validUser, cpf: '' })
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe('CPF is required');
+  });
+
 
   test('should not be possible register a new user with email already registered', async function () {
     await requester(app)
