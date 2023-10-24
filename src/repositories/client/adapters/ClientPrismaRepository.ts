@@ -19,6 +19,7 @@ export default class ClientPrismaRepository implements IClientRepository {
         name: data.name.value,
         phone: data.phone,
         email: data.email.value,
+        clientAddressId: 'change_me'
       }
     });
   }
