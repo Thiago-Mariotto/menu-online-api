@@ -3,7 +3,7 @@ import IClientRepository from '../../repositories/client/IClientRepository';
 import { TCreatedClient } from '../../types/Client';
 import { IService } from '../IService';
 
-export default class FetchClientById implements IService<string, TCreatedClient> {
+export default class FetchClientByIdService implements IService<string, TCreatedClient> {
   private _clientRepository: IClientRepository;
 
   constructor(clientRepository: IClientRepository) {

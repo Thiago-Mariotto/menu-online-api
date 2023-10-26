@@ -1,4 +1,4 @@
-import BadRequest from "../../errors/BadRequest";
+import BadRequest from '../../errors/BadRequest';
 
 export default class Password {
   private password: string;
@@ -14,6 +14,7 @@ export default class Password {
   }
 
   public static fromString(password: string) {
+    if (!password) throw new BadRequest('Password is required');
     if (!Password.isAValidPassword(password)) throw new BadRequest('Invalid Password');
     return new Password(password);
   }

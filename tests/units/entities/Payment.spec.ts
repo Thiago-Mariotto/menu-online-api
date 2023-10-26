@@ -7,7 +7,7 @@ describe('# Unit - Entity => Payment', function () {
   });
 
   test('should throw an error when create a invalid Payment using ""', function () {
-    expect(() => new Payment('')).toThrowError('Invalid Name');
+    expect(() => new Payment('')).toThrowError('Name is required');
   });
 
   test('should throw an error when create a invalid Payment with 2 characters "ze"', function () {

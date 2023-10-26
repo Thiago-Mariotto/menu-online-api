@@ -22,5 +22,8 @@ jobs:
       - name: Install Dependencies
         run: npm cache clean --force && npm install
 
-      - name: Run All tests
-        run: npm test
+      - name: Run Integration tests
+        run: yarn test:integration
+
+      - name: Run Unit tests
+        run: yarn test:unit

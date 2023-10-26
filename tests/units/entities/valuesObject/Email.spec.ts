@@ -7,7 +7,7 @@ describe('# Unit - ValueObjects => Email', function () {
   });
 
   test('should throw an error when create a invalid Email no using ".com"', function () {
-    expect(() => Email.fromString('')).toThrowError('Invalid Email');
+    expect(() => Email.fromString('')).toThrowError('Email is required');
   });
 
   test('should throw an error when create a invalid Email no using "@" symbol', function () {

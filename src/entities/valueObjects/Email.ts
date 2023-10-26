@@ -12,6 +12,7 @@ export default class Email {
   }
 
   public static fromString(email: string) {
+    if (!email) throw new BadRequest('Email is required');
     if (!Email.isAValidEmail(email)) throw new BadRequest('Invalid Email');
     return new Email(email);
   }

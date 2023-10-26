@@ -42,12 +42,13 @@ model DistrictModel {
 }
 
 model AddressModel {
-  addressId         String              @id @default(uuid()) @map("address_id")
-  cep               String              @db.VarChar(10)
-  street            String              @db.VarChar(100)
-  District          DistrictModel       @relation(fields: [districtId], references: [districtId])
-  districtId        String              @map("district_id")
-  StoreAddressModel StoreAddressModel[]
+  addressId          String               @id @default(uuid()) @map("address_id")
+  cep                String               @db.VarChar(10)
+  street             String               @db.VarChar(100)
+  District           DistrictModel        @relation(fields: [districtId], references: [districtId])
+  districtId         String               @map("district_id")
+  StoreAddressModel  StoreAddressModel[]
+  ClientAddressModel ClientAddressModel[]
 }
 
 model UserModel {
@@ -89,14 +90,25 @@ model ProductImageModel {
   productId String       @map("product_id")
 }
 
-model ClientModel {
-  clientId String @id @default(uuid()) @map("client_id")
-  name     String @db.VarChar(100)
-  email    String @unique @db.VarChar(100)
-  phone    String @db.VarChar(20)
-}
-
 model PaymentModel {
   paymentId String @id @default(uuid()) @map("payment_id")
   name      String @unique @db.VarChar(100)
+}
+
+model ClientModel {
+  clientId           String             @id @default(uuid()) @map("client_id")
+  name               String             @db.VarChar(100)
+  email              String             @unique @db.VarChar(100)
+  phone              String             @db.VarChar(20)
+  clientAddressId    String             @map("client_address_id")
+  ClientAddressModel ClientAddressModel @relation(fields: [clientAddressId], references: [clientAddressId])
+}
+
+model ClientAddressModel {
+  clientAddressId String        @id @default(uuid()) @map("client_address_id")
+  complement      String        @db.VarChar(100)
+  number          String        @db.VarChar(4)
+  address         AddressModel  @relation(fields: [addressId], references: [addressId])
+  addressId       String        @map("address_id")
+  ClientModel     ClientModel[]
 }

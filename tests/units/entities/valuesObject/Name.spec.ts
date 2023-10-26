@@ -7,7 +7,7 @@ describe('# Unit - ValueObjects => Name', function () {
   });
 
   test('should throw an error when create a invalid Name using ""', function () {
-    expect(() => Name.fromString('')).toThrowError('Invalid Name');
+    expect(() => Name.fromString('')).toThrowError('Name is required');
   });
 
   test('should throw an error when create a invalid Name with "Ze"', function () {
