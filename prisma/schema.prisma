@@ -31,6 +31,7 @@ model StoreAddressModel {
   number         String       @db.VarChar(4)
   address        AddressModel @relation(fields: [addressId], references: [addressId])
   addressId      String       @map("address_id")
+  StoreModel     StoreModel[]
 }
 
 model DistrictModel {
@@ -52,16 +53,17 @@ model AddressModel {
 }
 
 model UserModel {
-  userId    String   @id @default(uuid()) @map("user_id")
-  email     String   @unique @db.VarChar(100)
-  name      String   @db.VarChar(100)
-  password  String   @db.VarChar(100)
-  cpf       String   @unique @db.VarChar(20)
-  role      String   @default("user") @db.VarChar(10)
-  phone     String   @db.VarChar(20)
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now()) @map("created_at")
-  lastLogin DateTime @map("last_login")
+  userId     String       @id @default(uuid()) @map("user_id")
+  email      String       @unique @db.VarChar(100)
+  name       String       @db.VarChar(100)
+  password   String       @db.VarChar(100)
+  cpf        String       @unique @db.VarChar(20)
+  role       String       @default("user") @db.VarChar(10)
+  phone      String       @db.VarChar(20)
+  active     Boolean      @default(true)
+  createdAt  DateTime     @default(now()) @map("created_at")
+  lastLogin  DateTime     @map("last_login")
+  StoreModel StoreModel[]
 }
 
 model CategoryModel {
@@ -111,4 +113,16 @@ model ClientAddressModel {
   address         AddressModel  @relation(fields: [addressId], references: [addressId])
   addressId       String        @map("address_id")
   ClientModel     ClientModel[]
+}
+
+model StoreModel {
+  storeId           String            @id @default(uuid()) @map("store_id")
+  name              String            @db.VarChar(100)
+  userId            String            @map("user_id")
+  user              UserModel         @relation(fields: [userId], references: [userId])
+  cnpj              String            @unique @db.VarChar(20)
+  phone             String            @db.VarChar(20)
+  active            Boolean           @default(true)
+  storeAddressId    String            @map("store_address_id")
+  StoreAddressModel StoreAddressModel @relation(fields: [storeAddressId], references: [storeAddressId])
 }
