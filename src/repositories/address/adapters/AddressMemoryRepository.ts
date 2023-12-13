@@ -1,33 +1,20 @@
 import NotFound from '../../../errors/NotFound';
-import { TInputAddress, TOutputApiServiceAddress } from '../../../types/Address';
+import { TInputAddress, TOutputAddressModel } from '../../../types/Address';
 import IAddressRepository from '../IAddressRepository';
-import InMemoryDistrictRepository from '../district/adapters/InMemoryDistrictRepository';
 
 export default class AddressMemoryRepository implements IAddressRepository {
-
-  private _districtRepository = new InMemoryDistrictRepository();
-
-  private addresses: TOutputApiServiceAddress[] = [
-    { cep: '01001-000', cityName: 'São Paulo', districtName: 'Sé', stateName: 'São Paulo', street: 'Praça da Sé' },
-    { cep: '08737380', cityName: 'Mogi das Cruzes', districtName: 'Vila Brasileira', stateName: 'São Paulo', street: 'Rua Professor Flaviano de Melo' },
+  private addresses: TOutputAddressModel[] = [
+    { addressId: '562d0318-3eb6-4488-ab1b-be4a378e249e', cep: '12414-070', street: 'Rua Ubatuba', districtId: '0059697c-7021-4ba1-97bb-0b7bac157e00' }
   ];
 
-  async getAddressByCEPOrThrow(cepData: string): Promise<TOutputApiServiceAddress> {
+  async getAddressByCEPOrThrow(cepData: string): Promise<TOutputAddressModel> {
     const address = this.addresses.find(address => address.cep === cepData);
-    if (!address) throw new NotFound('Address does not exist');
+    if (!address) throw new NotFound('CEP não encontrado');
     return address;
   }
 
-  async create(address: TInputAddress): Promise<TOutputApiServiceAddress> {
-    const district = await this._districtRepository.findByDistrictIdOrThrow(address.districtId);
-    const newAddress = {
-      cep: address.cep,
-      districtName: district.name,
-      stateName: district.City.State.name,
-      cityName: district.City.name,
-      street: address.street
-    };
-    return newAddress;
+  create(address: TInputAddress): Promise<TOutputAddressModel> {
+    throw new Error('Method not implemented.');
   }
 
 }
