@@ -1,3 +1,5 @@
+import BadRequest from '../../errors/BadRequest';
+
 export default class CategoryName {
   private name: string;
 
@@ -12,7 +14,8 @@ export default class CategoryName {
   }
 
   public static fromString(name: string) {
-    if (!CategoryName.isAValidName(name)) throw new Error('Invalid Category');
+    if (!name) throw new BadRequest('Category is required');
+    if (!CategoryName.isAValidName(name)) throw new BadRequest('Invalid Category');
     return new CategoryName(name);
   }
 

@@ -3,6 +3,12 @@
     "es2021": true,
     "node": true
   },
+  "ignorePatterns": [
+    "temp.*",
+    "*.spec.ts",
+    "*.test.ts",
+    "build/*"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended"
@@ -39,6 +45,14 @@
     "max-params": [
       "error",
       4
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "warn", // or "error"
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
     ]
   }
 }
