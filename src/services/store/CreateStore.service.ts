@@ -1,5 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import StoreBuilder from '../../entities/StoreBuilder';
+import BadRequest from '../../errors/BadRequest';
 import Conflict from '../../errors/Conflict';
 import IStoreAddressRepository from '../../repositories/address/storeAddress/IStoreAddressRepository';
 import ConnectionPrismaAdapter from '../../repositories/connection/adapters/ConnectionPrismaAdapter';
@@ -16,17 +17,17 @@ export default class CreateStoreService implements IService<TCreationStoreDTO, v
   ) { }
 
   async execute(data: TCreationStoreDTO): Promise<void> {
-    await this.validateRegister(data);
-    const address = await this._cacheAddressService.execute(data.cep);
     const prismaClient = new ConnectionPrismaAdapter().getConnection();
+    const address = await this._cacheAddressService.execute(data.cep);
     try {
-      await prismaClient.$executeRaw`BEGIN;`;
       // Start transaction
+      await this.validateRegister(data);
+      await prismaClient.$executeRaw`BEGIN;`;
       const newStoreAddress = await this._storeAddressRepository.create({
         addressId: address.addressId,
         number: data.number
       });
-  
+
       const store = new StoreBuilder(data.cnpj)
         .setName(data.name)
         .setCep(data.cep)
@@ -34,18 +35,17 @@ export default class CreateStoreService implements IService<TCreationStoreDTO, v
         .setPhone(data.phone)
         .setStoreAddressId(newStoreAddress.storeAddressId)
         .build();
-  
-      await this._storeRepository.create(store);  
+
+      await this._storeRepository.create(store);
       await prismaClient.$executeRaw`COMMIT;`;
       // commit
     } catch (err) {
-      console.error('Erro:', err);
       await prismaClient.$executeRaw`ROLLBACK;`;
+      console.log(err);
+      throw new Conflict('Erro ao cadastrar loja');
       // rollback
     }
   }
-
-
 
   private async validateRegister(data: TCreationStoreDTO) {
     await this.cnpjExists(data.cnpj);

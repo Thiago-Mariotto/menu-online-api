@@ -16,14 +16,14 @@ export default class CacheAddressService implements IService<string, TOutputAddr
   }
 
   async execute(cepData: string): Promise<TOutputAddressModel> {
-    const address = await this._addressRepository.getAddressByCEPOrThrow(cepData);
+    const address = await this._addressRepository.getAddressByCEP(cepData);
     if (address) return address;
     return await this.handleCacheFetchStrategy(cepData);
   }
 
   private async handleCacheFetchStrategy(cepData: string): Promise<TOutputAddressModel> {
     const { cityName, districtName, street, cep } = await this._apiService.execute(cepData);
-    const city = await this.addressServices.cityService.getCityByNameOrThrow(cityName);  
+    const city = await this.addressServices.cityService.getCityByNameOrThrow(cityName);
     const newAddress = await this.saveAddress({
       districtName: districtName,
       cityId: city.cityId,

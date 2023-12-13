@@ -1,7 +1,7 @@
 import { TInputAddress, TOutputAddressModel } from '../../types/Address';
 
 interface IAddressRepository {
-  getAddressByCEPOrThrow(cepData: string): Promise<TOutputAddressModel>;
+  getAddressByCEP(cepData: string): Promise<TOutputAddressModel | null>;
   create(address: TInputAddress): Promise<TOutputAddressModel>
 }
 
