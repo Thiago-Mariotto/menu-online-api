@@ -1,19 +1,13 @@
-import { Prisma, PrismaClient } from '@prisma/client';
-import { DefaultArgs } from '@prisma/client/runtime/library';
 import { TOutputAddressStore, TStoreAddressInput } from '../../../../types/Address';
 import IStoreAddress from '../IStoreAddressRepository';
+import ConnectionPrismaAdapter from '../../../connection/adapters/ConnectionPrismaAdapter';
 
 export default class StoreAddressPrismaRepository implements IStoreAddress {
-  private _prisma: PrismaClient;
-  private _storeAddressModel: Prisma.StoreAddressModelDelegate<DefaultArgs>;
-
-  constructor() {
-    this._prisma = new PrismaClient();
-    this._storeAddressModel = this._prisma.storeAddressModel;
-  }
-
+  
+  private _orm = new ConnectionPrismaAdapter().getConnection();
+  
   async create(data: TStoreAddressInput): Promise<TOutputAddressStore> {
-    const result = await this._storeAddressModel.create({
+    const result = await this._orm.storeAddressModel.create({
       data: {
         complement: data.complement || '',
         number: data.number,

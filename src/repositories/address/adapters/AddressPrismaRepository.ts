@@ -1,11 +1,11 @@
-import { PrismaClient } from '@prisma/client';
 import NotFound from '../../../errors/NotFound';
 import { TInputAddress, TOutputAddressModel } from '../../../types/Address';
 import IAddressRepository from '../IAddressRepository';
+import ConnectionPrismaAdapter from '../../connection/adapters/ConnectionPrismaAdapter';
 
 export default class PrismaAddressAdapter implements IAddressRepository {
 
-  private _orm = new PrismaClient();
+  private _orm = new ConnectionPrismaAdapter().getConnection();
 
   async getAddressByCEPOrThrow(cepData: string): Promise<TOutputAddressModel> {
     const address = await this._orm.addressModel.findFirst({ where: { cep: cepData }, 
