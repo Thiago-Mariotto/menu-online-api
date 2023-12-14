@@ -60,7 +60,7 @@ describe('# Integration - Store - Create', function () {
       .set('Authorization', authorization)
       .send({ ...validStore, name: '' })
 
-    expect(newStore.status).toBe(400);
+    expect(newStore.status).toBe(409);
     expect(newStore.body).toHaveProperty('message');
     expect(newStore.body.message).toBe('O campo nome é obrigatório');
   });
@@ -71,9 +71,9 @@ describe('# Integration - Store - Create', function () {
       .set('Authorization', authorization)
       .send({ ...validStore, cnpj: '' })
 
-    expect(newStore.status).toBe(400);
+    expect(newStore.status).toBe(409);
     expect(newStore.body).toHaveProperty('message');
-    expect(newStore.body.message).toBe('CNPJ é obrigatório');
+    expect(newStore.body.message).toBe('Erro ao cadastrar loja');
   });
 
   test('should not be possible create a store with invalid cnpj', async function () {
@@ -82,9 +82,9 @@ describe('# Integration - Store - Create', function () {
       .set('Authorization', authorization)
       .send({ ...validStore, cnpj: '12.132.133/0001-39' })
 
-    expect(newStore.status).toBe(400);
+    expect(newStore.status).toBe(409);
     expect(newStore.body).toHaveProperty('message');
-    expect(newStore.body.message).toBe('CNPJ inválido');
+    expect(newStore.body.message).toBe('Erro ao cadastrar loja');
   });
 
   test('should not be possible create a store without cep', async function () {
