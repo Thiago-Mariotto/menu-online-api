@@ -4,9 +4,9 @@ import ConnectionPrismaAdapter from '../../connection/adapters/ConnectionPrismaA
 import IStoreRepository from '../IStoreRepository';
 
 export default class StorePrismaRepository implements IStoreRepository {
-  
+
   private _orm = new ConnectionPrismaAdapter().getConnection();
-  
+
   async findByCNPJ(cnpj: string): Promise<TStoreCreated | null> {
     return this._orm.storeModel.findUnique({
       where: { cnpj }
@@ -21,7 +21,7 @@ export default class StorePrismaRepository implements IStoreRepository {
 
   async findByUserId(userId: string): Promise<TStoreCreated[]> {
     return this._orm.storeModel.findMany({
-      where: { userId, active: true }
+      where: { userId }
     });
   }
 
