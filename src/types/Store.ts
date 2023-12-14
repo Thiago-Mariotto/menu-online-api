@@ -1,3 +1,5 @@
+import { TCreatedPayload } from './Login';
+
 export type TCreationStoreDTO = {
   name: string;
   cnpj: string;
@@ -16,4 +18,14 @@ export type TStoreCreated = {
   userId: string;
   storeAddressId: string;
   active: boolean;
+}
+
+export type TGetStoreByUserDTO = {
+  userId: string;
+  session: TCreatedPayload;
+}
+
+export type TGetStoreDTO = {
+  storeId: string;
+  session: TCreatedPayload;
 }
