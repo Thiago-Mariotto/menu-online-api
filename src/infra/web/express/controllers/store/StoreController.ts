@@ -24,7 +24,7 @@ export default class StoreController {
   public async getStoresByUser(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req.params;
-      const stores = await this._getStoresByUser.execute({ id: userId, loggedUser: req.body.user });
+      const stores = await this._getStoresByUser.execute({ userId, session: req.body.user });
       return res.status(200).json(stores);
     } catch (error) {
       next(error);
@@ -34,7 +34,7 @@ export default class StoreController {
   public async getStoreById(req: Request, res: Response, next: NextFunction) {
     try {
       const { storeId } = req.params;
-      const store = await this._getStoreById.execute({ id: storeId, loggedUser: req.body.user });
+      const store = await this._getStoreById.execute({ storeId, session: req.body.user });
       return res.status(200).json(store);
     } catch (error) {
       next(error);
