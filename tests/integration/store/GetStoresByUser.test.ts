@@ -56,4 +56,32 @@ describe('# Integration - Store - Get Stores By User', function () {
     expect(response.body).toHaveProperty('message');
     expect(response.body.message).toBe('Token inválido');
   });
+
+  test('should not be possible get user stores with another user token', async function () {
+    const secondeUser = await requester(app)
+      .post('/api/users')
+      .send({
+        name: 'ada lovelace',
+        cpf: '517.226.520-12',
+        email: 'ada@lovelace.com',
+        password: '12345Abcd##',
+        phone: '(11) 99999-1111'
+      });
+
+    const secondUserLogin = await requester(app)
+      .post('/api/users/login')
+      .send({
+        email: 'ada@lovelace.com',
+        password: validUser.password
+      });
+    const secondUserToken = secondUserLogin.body.token;
+
+    const response = await requester(app)
+      .get(`/api/stores/user/${userId}`)
+      .set('Authorization', secondUserToken);
+
+    expect(response.status).toBe(403);
+    expect(response.body).toHaveProperty('message');
+    expect(response.body.message).toBe('Você não tem permissão para acessar essas informações');
+  });
 });
