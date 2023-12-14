@@ -1,6 +1,5 @@
 /* eslint-disable max-lines-per-function */
 import StoreBuilder from '../../entities/StoreBuilder';
-import BadRequest from '../../errors/BadRequest';
 import Conflict from '../../errors/Conflict';
 import IStoreAddressRepository from '../../repositories/address/storeAddress/IStoreAddressRepository';
 import ConnectionPrismaAdapter from '../../repositories/connection/adapters/ConnectionPrismaAdapter';
@@ -19,9 +18,9 @@ export default class CreateStoreService implements IService<TCreationStoreDTO, v
   async execute(data: TCreationStoreDTO): Promise<void> {
     const prismaClient = new ConnectionPrismaAdapter().getConnection();
     const address = await this._cacheAddressService.execute(data.cep);
+    await this.validateRegister(data);
     try {
       // Start transaction
-      await this.validateRegister(data);
       await prismaClient.$executeRaw`BEGIN;`;
       const newStoreAddress = await this._storeAddressRepository.create({
         addressId: address.addressId,
