@@ -19,8 +19,3 @@ export type TCreatedPayload = {
 export type TToken = {
   token: string;
 }
-
-export type TLoggedInputDTO = {
-  id: string
-  loggedUser: TCreatedPayload;
-}
