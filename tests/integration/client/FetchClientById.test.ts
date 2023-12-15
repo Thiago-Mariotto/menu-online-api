@@ -8,7 +8,6 @@ describe('# Integration - Client - FetchById', function () {
       .post('/api/clients')
       .send(validClient);
 
-    console.log(newClient.body);
     const { clientId } = newClient.body;
     const client = await requester(app)
       .get(`/api/clients/${clientId}`);

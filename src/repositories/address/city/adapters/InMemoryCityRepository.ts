@@ -5,8 +5,7 @@ import ICityRepository from '../ICityRepository';
 export default class InMemoryCityRepository implements ICityRepository {
 
   private cities: TOutputCityModel[] = [
-    { name: 'São Paulo', cityId: '43256573', stateId: '43256573' },
-    { name: 'Rio de Janeiro', cityId: '98763628', stateId: '98763628' }
+    { name: 'Pindamonhangaba', cityId: '0059697c-7021-4ba1-97bb-0b7bac157e00', stateId: '418be216-e3ea-46c3-865d-9ceaf118d609' }
   ];
 
   async findByCityNameOrThrow(cityName: string): Promise<TOutputCityModel> {

@@ -7,7 +7,7 @@ export default class DistrictService {
   constructor(districtRepository: IDistrictRepository) {
     this._districtRepository = districtRepository;
   }
-  
+
   public async saveDistrict(district: TDistrictInput) {
     return await this._districtRepository.create(district);
   }

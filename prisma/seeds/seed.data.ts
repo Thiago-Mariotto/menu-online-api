@@ -134,8 +134,7 @@ export const storeAddresses = [
 export const payments = [
   {
     paymentId: 'eced01fb-3db6-4e9a-be81-1969609fe060',
-    name: 'Dinheiro',
-    description: 'Dinheiro'
+    name: 'Dinheiro'
   },
   {
     paymentId: '86a218cf-0cfe-4a13-b7cd-00ce883c7820',
@@ -154,7 +153,7 @@ export const payments = [
     name: 'Boleto',
   },
   {
-    paymentId: 'a9f4a9f6-2f7f-4d3b-9e9a-7d2b4a1b9e0c',
+    paymentId: '658afc7d-2e82-4884-b595-a7ef94d994c9',
     name: 'Cheque',
   },
 ];

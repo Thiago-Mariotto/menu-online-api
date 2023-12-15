@@ -1,6 +1,6 @@
+import CityService from '../services/address/city/CityService';
 import DistrictService from '../services/address/district/DistrictService';
 import StateService from '../services/address/state/StateService';
-import CityService from '../services/address/city/CityService';
 
 export type TViaCepAddress = {
   cep: string;
@@ -68,18 +68,31 @@ export type TOutputCityModel = {
 
 export type TEagerDistrictOutput = {
   City: {
-      State: {
-          stateId: string;
-          name: string;
-          uf: string;
-      };
-  } & {
-      cityId: string;
-      name: string;
+    State: {
       stateId: string;
+      name: string;
+      uf: string;
+    };
+  } & {
+    cityId: string;
+    name: string;
+    stateId: string;
   };
 } & {
   districtId: string;
   name: string;
   cityId: string;
+}
+
+export type TStoreAddressInput = {
+  complement?: string;
+  number: string;
+  addressId: string;
+}
+
+export type TOutputAddressStore = {
+  storeAddressId: string;
+  addressId: string;
+  complement?: string;
+  number: string;
 }
