@@ -2,8 +2,6 @@
 import StoreBuilder from '../../entities/StoreBuilder';
 import BadRequest from '../../errors/BadRequest';
 import Conflict from '../../errors/Conflict';
-import IStoreAddressRepository from '../../repositories/address/storeAddress/IStoreAddressRepository';
-import ConnectionPrismaAdapter from '../../repositories/connection/adapters/ConnectionPrismaAdapter';
 import IStoreRepository from '../../repositories/store/IStoreRepository';
 import { TCreationStoreDTO } from '../../types/Store';
 import { IService } from '../IService';
@@ -13,24 +11,20 @@ export default class CreateStoreService implements IService<TCreationStoreDTO, v
   constructor(
     private _cacheAddressService: CacheAddressService,
     private _storeRepository: IStoreRepository,
-    private _storeAddressRepository: IStoreAddressRepository
   ) { }
 
   async execute(data: TCreationStoreDTO): Promise<void> {
-    // const prismaClient = new ConnectionPrismaAdapter().getConnection();
     if (data.name.trim().length < 1) {
       throw new BadRequest('O campo nome é obrigatório');
     }
     const address = await this._cacheAddressService.execute(data.cep);
     await this.validateRegister(data);
     try {
-      // Start transaction
-      // await prismaClient.$executeRaw`BEGIN;`;
-      const newStoreAddress = await this._storeAddressRepository.create({
+      const newStoreAddress = await this._storeRepository.createAddress({
         addressId: address.addressId,
         number: data.number
       });
-
+  
       const store = new StoreBuilder(data.cnpj)
         .setName(data.name)
         .setCep(data.cep)
@@ -38,16 +32,12 @@ export default class CreateStoreService implements IService<TCreationStoreDTO, v
         .setPhone(data.phone)
         .setStoreAddressId(newStoreAddress.storeAddressId)
         .build();
-
+  
       await this._storeRepository.create(store);
-      // await prismaClient.$executeRaw`COMMIT;`;
-      // commit
     } catch (err) {
-      // await prismaClient.$executeRaw`ROLLBACK;`;
-      console.log(err);
       throw new Conflict('Erro ao cadastrar loja');
-      // rollback
     }
+    
   }
 
   private async validateRegister(data: TCreationStoreDTO) {

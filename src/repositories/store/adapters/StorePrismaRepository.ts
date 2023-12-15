@@ -1,11 +1,12 @@
 import Store from '../../../entities/Store';
+import { TOutputAddressStore, TStoreAddressInput } from '../../../types/Address';
 import { TStoreCreated } from '../../../types/Store';
 import ConnectionPrismaAdapter from '../../connection/adapters/ConnectionPrismaAdapter';
 import IStoreRepository from '../IStoreRepository';
 
 export default class StorePrismaRepository implements IStoreRepository {
 
-  private _orm = new ConnectionPrismaAdapter().getConnection();
+  protected _orm = new ConnectionPrismaAdapter().getConnection();
 
   async findByCNPJ(cnpj: string): Promise<TStoreCreated | null> {
     return this._orm.storeModel.findUnique({
@@ -36,5 +37,18 @@ export default class StorePrismaRepository implements IStoreRepository {
       }
     });
     return newStore;
+  }
+
+
+  async createAddress(data: TStoreAddressInput): Promise<TOutputAddressStore> {
+    const result = await this._orm.storeAddressModel.create({
+      data: {
+        complement: data.complement || '',
+        number: data.number,
+        addressId: data.addressId,
+      }
+    });
+
+    return result;
   }
 }
