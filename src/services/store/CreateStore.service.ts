@@ -1,5 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import StoreBuilder from '../../entities/StoreBuilder';
+import BadRequest from '../../errors/BadRequest';
 import Conflict from '../../errors/Conflict';
 import IStoreAddressRepository from '../../repositories/address/storeAddress/IStoreAddressRepository';
 import ConnectionPrismaAdapter from '../../repositories/connection/adapters/ConnectionPrismaAdapter';
@@ -16,12 +17,15 @@ export default class CreateStoreService implements IService<TCreationStoreDTO, v
   ) { }
 
   async execute(data: TCreationStoreDTO): Promise<void> {
-    const prismaClient = new ConnectionPrismaAdapter().getConnection();
+    // const prismaClient = new ConnectionPrismaAdapter().getConnection();
+    if (data.name.trim().length < 1) {
+      throw new BadRequest('O campo nome é obrigatório');
+    }
     const address = await this._cacheAddressService.execute(data.cep);
     await this.validateRegister(data);
     try {
       // Start transaction
-      await prismaClient.$executeRaw`BEGIN;`;
+      // await prismaClient.$executeRaw`BEGIN;`;
       const newStoreAddress = await this._storeAddressRepository.create({
         addressId: address.addressId,
         number: data.number
@@ -36,10 +40,10 @@ export default class CreateStoreService implements IService<TCreationStoreDTO, v
         .build();
 
       await this._storeRepository.create(store);
-      await prismaClient.$executeRaw`COMMIT;`;
+      // await prismaClient.$executeRaw`COMMIT;`;
       // commit
     } catch (err) {
-      await prismaClient.$executeRaw`ROLLBACK;`;
+      // await prismaClient.$executeRaw`ROLLBACK;`;
       console.log(err);
       throw new Conflict('Erro ao cadastrar loja');
       // rollback

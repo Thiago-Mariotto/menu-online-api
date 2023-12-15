@@ -60,7 +60,7 @@ describe('# Integration - Store - Create', function () {
       .set('Authorization', authorization)
       .send({ ...validStore, name: '' })
 
-    expect(newStore.status).toBe(409);
+    expect(newStore.status).toBe(400);
     expect(newStore.body).toHaveProperty('message');
     expect(newStore.body.message).toBe('O campo nome é obrigatório');
   });
