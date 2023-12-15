@@ -1,32 +1,27 @@
-import { TAddressServices, TInputSaveAddress, TOutputApiServiceAddress } from '../../types/Address';
-import { IService } from '../IService';
-import ViaCepAddressFetcher from '../viaCep/ViaCepAddressFetcher.service';
-import AddressServiceBuilder from './builders/AddressServiceBuilder';
 import IAddressRepository from '../../repositories/address/IAddressRepository';
+import { TAddressServices, TInputSaveAddress, TOutputAddressModel, TOutputApiServiceAddress } from '../../types/Address';
+import { IService } from '../IService';
+import AddressServiceBuilder from './builders/AddressServiceBuilder';
 
-export default class CacheAddressService implements IService<string, TOutputApiServiceAddress> {
+export default class CacheAddressService implements IService<string, TOutputAddressModel> {
 
   private addressServices: TAddressServices;
   private addressServicesBuilder = AddressServiceBuilder;
   private _addressRepository: IAddressRepository;
   constructor(
-    private _apiService: IService<string, TOutputApiServiceAddress> = new ViaCepAddressFetcher(),
-    addressRepository: IAddressRepository) { 
+    private _apiService: IService<string, TOutputApiServiceAddress>,
+    addressRepository: IAddressRepository) {
     this.addressServices = this.addressServicesBuilder.buildAddressServices();
     this._addressRepository = addressRepository;
   }
 
-  async execute(cepData: string): Promise<TOutputApiServiceAddress> {
-    try {
-      const address = await this._addressRepository.getAddressByCEPOrThrow(cepData);
-      return address;
-    }
-    catch (err) {
-      return await this.handleCacheFetchStrategy(cepData);
-    }
+  async execute(cepData: string): Promise<TOutputAddressModel> {
+    const address = await this._addressRepository.getAddressByCEP(cepData);
+    if (address) return address;
+    return await this.handleCacheFetchStrategy(cepData);
   }
 
-  private async handleCacheFetchStrategy(cepData: string): Promise<TOutputApiServiceAddress> {
+  private async handleCacheFetchStrategy(cepData: string): Promise<TOutputAddressModel> {
     const { cityName, districtName, street, cep } = await this._apiService.execute(cepData);
     const city = await this.addressServices.cityService.getCityByNameOrThrow(cityName);
     const newAddress = await this.saveAddress({
@@ -35,7 +30,6 @@ export default class CacheAddressService implements IService<string, TOutputApiS
       cep,
       street
     });
-  
     return newAddress;
   }
 

@@ -7,8 +7,7 @@ import IDistrictRepository from '../IDistrictRepository';
 export default class InMemoryDistrictRepository implements IDistrictRepository {
 
   private _districts: TDistrictCreated[] = [
-    { name: 'Sé', cityId: '12314324534', districtId: '123123123' },
-    { name: 'Vila Brasileira', cityId: '12314324534', districtId: '123123123' }
+    { name: 'Cidade Nova', cityId: '0059697c-7021-4ba1-97bb-0b7bac157e00', districtId: 'ed593f01-dd88-432e-9006-0d901c7feeb8' }
   ];
   private _stateRepository = new InMemoryStateRepository();
   private _cityRepository = new InMemoryCityRepository();

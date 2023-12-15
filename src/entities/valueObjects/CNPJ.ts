@@ -8,16 +8,16 @@ export default class CNPJ {
   }
 
   static fromString(value: string): CNPJ {
-    if (!value) throw new BadRequest('CNPJ is required');
+    if (!value) throw new BadRequest('CNPJ é obrigatório');
 
     if (!value.match(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)) {
-      throw new BadRequest('Invalid CNPJ');
+      throw new BadRequest('CNPJ inválido');
     }
 
     const newCnpj = new CNPJ(value);
     newCnpj.isValid();
 
-    return new CNPJ(value);
+    return newCnpj;
   }
 
   get value(): string {
@@ -28,7 +28,7 @@ export default class CNPJ {
   // Verifica se todos os dígitos são iguais (Ex.: 00.000.000/0000-00) 
   private allDigitsAreEqual(cnpj: string): boolean {
     if (/^(\d)\1+$/.test(cnpj)) {
-      throw new BadRequest('Invalid CNPJ');
+      throw new BadRequest('CNPJ inválido');
     }
     return true;
   }
@@ -74,7 +74,7 @@ export default class CNPJ {
   // Valida o CNPJ
   private verifyDigit(cnpjDigit: number, validateDigit: number) {
     if (cnpjDigit !== validateDigit) {
-      throw new BadRequest('Invalid CNPJ');
+      throw new BadRequest('CNPJ inválido');
     }
   }
 
