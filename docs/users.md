@@ -74,17 +74,6 @@ Restricões:
 }
 ```
 
-#### Exemplo de uso
-
-```bash
-curl --location --request POST 'http://localhost:3001/api/users/login' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "email": "john@mail.com",
-    "password": "123456"
-}'
-```
-
 </details>
 
 ---
@@ -148,20 +137,6 @@ Exemplo, CPF inválido:
   "name": "BadRequest",
   "message": "CPF inválido"
 }
-```
-
-#### Exemplo de uso
-
-```bash
-curl --location --request POST 'http://localhost:3001/api/users' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "John Doe",
-    "email": "john@doe.com",
-    "password": "1234Abc##",
-    "cpf": "311.702.130-22",
-    "phone": "1298721723"
-}'
 ```
 
 </details>
@@ -292,7 +267,6 @@ Restrições:
 {
   "name": "string", 🚫
   "email": "string", 🚫
-  "password": "string", 🚫
   "phone": "string", 🚫
 }
 ```
