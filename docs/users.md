@@ -164,12 +164,217 @@ curl --location --request POST 'http://localhost:3001/api/users' \
 }'
 ```
 
+</details>
+
 ---
 
-### GET `/api/users` <a name = "get-apiusers"></a>
+### Listando todos usuários - GET `/api/users` <a name = "get-apiusers"></a>
 
-### GET `/api/users/:userId` <a name = "get-apiusersid"></a>
+Realiza a listagem de todos os usuários.
 
-### PUT `/api/users/:userId` <a name = "put-apiusersid"></a>
+<details>
+<summary>Detalhes</summary>
 
-### DELETE `/api/users/:userId` <a name = "delete-apiusersid"></a>
+#### Realizando uma requisição
+
+Restrições:
+
+- 🚫 O usuário deve estar logado.
+- 🚫 O usuário deve ser um administrador.
+- 🚫 A resposta deve ser páginada com no máximo 20 usuários por página.
+
+```json
+{}
+```
+
+#### Respostas do servidor
+
+✅ Em caso de sucesso, o servidor retornará status 200 e uma lista com todos os usuários.
+
+```json
+[
+  {
+    "userId": "2a616ed2-9ca9-4e48-b344-0cef86ede2ed",
+    "cpf": "977.146.150-87",
+    "name": "John Doe",
+    "email": "john@doe.com",
+    "role": "user",
+    "phone": "12999887766",
+    "active": true,
+    "lastLogin": "2023-10-18T17:06:32.164Z",
+    "createdAt": "2023-10-18T17:06:32.164Z"
+  }
+]
+```
+
+</details>
+
+---
+
+### Listando um usuário por ID - GET `/api/users/:userId` <a name = "get-apiusersid"></a>
+
+Realiza a listagem de um usuário específico.
+
+<details>
+<summary>Detalhes</summary>
+
+#### Realizando uma requisição
+
+Restrições:
+
+- 🚫 O usuário deve estar logado.
+- 🚫 O usuário deve ser um administrador ou o próprio usuário.
+
+```json
+{}
+```
+
+#### Respostas do servidor
+
+✅ Em caso de sucesso, o servidor retornará status 200 e o usuário.
+
+```json
+{
+  "userId": "2a616ed2-9ca9-4e48-b344-0cef86ede2ed",
+  "cpf": "977.146.150-87",
+  "name": "John Doe",
+  "email": "john@doe.com",
+  "role": "user",
+  "phone": "12999887766",
+  "active": true,
+  "lastLogin": "2023-10-18T17:06:32.164Z",
+  "createdAt": "2023-10-18T17:06:32.164Z"
+}
+```
+
+Em caso de erro do cliente, o servidor retornará um status da familia 4XX e um erro com a mensagem correspondente.
+
+Exemplo, usuário não encontrado:
+
+```json
+{
+  "name": "NotFound",
+  "message": "Usuário não encontrado"
+}
+```
+
+Exemplo, usuário não autorizado:
+
+```json
+{
+  "name": "Unauthorized",
+  "message": "Você não tem permissão para acessar este recurso"
+}
+```
+
+</details>
+
+---
+
+### Atualizando um usuário - PUT `/api/users/:userId` <a name = "put-apiusersid"></a>
+
+Realiza a atualização de um usuário específico.
+
+<details>
+<summary>Detalhes</summary>
+
+#### Realizando uma requisição
+
+Restrições:
+
+- 🚫 O usuário deve estar logado.
+- 🚫 O usuário deve ser um administrador ou o próprio usuário.
+- 🚫 Não deve ser possível alterar o CPF.
+- 🚫 Não deve ser possível alterar o email.
+- 🚫 Não deve ser possível alterar a senha nesse endpoint.
+
+```json
+{
+  "name": "string", 🚫
+  "email": "string", 🚫
+  "password": "string", 🚫
+  "phone": "string", 🚫
+}
+```
+
+#### Realizando uma requisição
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@mail.com",
+  "phone": "1298721723"
+}
+```
+
+#### Respostas do servidor
+
+✅ Em caso de sucesso, o servidor retornará status 204 sem conteúdo.
+
+❌ Em caso de erro do cliente, o servidor retornará um status da familia 4XX e um erro com a mensagem correspondente.
+
+Exemplo, usuário não encontrado:
+
+```json
+{
+  "name": "NotFound",
+  "message": "Usuário não encontrado"
+}
+```
+
+Exemplo, usuário não autorizado:
+
+```json
+{
+  "name": "Unauthorized",
+  "message": "Você não tem permissão para acessar este recurso"
+}
+```
+
+---
+
+### Desativando um usuário - DELETE `/api/users/:userId` <a name = "delete-apiusersid"></a>
+
+Realiza a desativação de um usuário específico.
+
+<details>
+<summary>Detalhes</summary>
+
+#### Realizando uma requisição
+
+Restrições:
+
+- 🚫 O usuário deve estar logado.
+- 🚫 O usuário deve ser um administrador ou o próprio usuário.
+
+```json
+{}
+```
+
+#### Respostas do servidor
+
+✅ Em caso de sucesso, o servidor retornará status 204 sem conteúdo.
+
+❌ Em caso de erro do cliente, o servidor retornará um status da familia 4XX e um erro com a mensagem correspondente.
+
+Exemplo, usuário não encontrado:
+
+```json
+{
+  "name": "NotFound",
+  "message": "Usuário não encontrado"
+}
+```
+
+Exemplo, usuário não autorizado:
+
+```json
+{
+  "name": "Unauthorized",
+  "message": "Você não tem permissão para acessar este recurso"
+}
+```
+
+</details>
+
+---
