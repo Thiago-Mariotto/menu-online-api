@@ -307,7 +307,7 @@ Exemplo, usuário não autorizado:
 
 ---
 
-### Desativando um usuário - DELETE `/api/users/:userId` <a name = "delete-apiusersid"></a>
+### Desativando um usuário - PATCH `/api/users/:userId` <a name = "patch-apiusersid"></a>
 
 Realiza a desativação de um usuário específico.
 
@@ -322,7 +322,11 @@ Restrições:
 - 🚫 O usuário deve ser um administrador ou o próprio usuário.
 
 ```json
-{}
+{
+  "params": {
+    "userId": "e12b374a-9e9a-4b11-ba69-2fd795a21831"
+  }
+}
 ```
 
 #### Respostas do servidor
