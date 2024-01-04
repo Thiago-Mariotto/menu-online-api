@@ -1,10 +1,11 @@
 from fastapi import FastAPI
-import requests
+from src.routers import products
 
 app = FastAPI()
 
 
+app.include_router(products.router)
+
 @app.get("/")
-async def get_products():
-  response = requests.get("http://localhost:3001/api/products")
-  return response.json()
+async def index():
+  return {"message": "Welcome to api gateway!"}
