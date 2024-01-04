@@ -1,0 +1,15 @@
+GET http://localhost:3001/api/products
+
+###
+
+POST http://localhost:3001/api/stores/f0d4210f-86ac-4fc6-b780-43f20de1ff4a/products 
+content-type: application/json
+
+{
+    "name": "pizza",
+    "description": "tasty pizza",
+    "price": 30,
+    "quantity": 1,
+    "promotionPrice": 28,
+    "categoryId": "3cb5ea67-66a5-49c0-a2a2-a86c8c2b9b37"
+}

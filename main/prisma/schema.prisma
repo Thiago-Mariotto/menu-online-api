@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model StateModel {
+  stateId String      @id @default(uuid()) @map("state_id")
+  name    String      @db.VarChar(100)
+  uf      String      @db.VarChar(2)
+  City    CityModel[]
+}
+
+model CityModel {
+  cityId   String          @id @default(uuid()) @map("city_id")
+  name     String          @db.VarChar(100)
+  District DistrictModel[]
+  State    StateModel      @relation(fields: [stateId], references: [stateId])
+  stateId  String          @map("state_id")
+}
+
+model StoreAddressModel {
+  storeAddressId String       @id @default(uuid()) @map("store_address_id")
+  complement     String       @db.VarChar(100)
+  number         String       @db.VarChar(4)
+  address        AddressModel @relation(fields: [addressId], references: [addressId])
+  addressId      String       @map("address_id")
+  StoreModel     StoreModel[]
+}
+
+model DistrictModel {
+  districtId String         @id @default(uuid()) @map("district_id")
+  name       String         @db.VarChar(100)
+  Address    AddressModel[]
+  City       CityModel      @relation(fields: [cityId], references: [cityId])
+  cityId     String         @map("city_id")
+}
+
+model AddressModel {
+  addressId          String               @id @default(uuid()) @map("address_id")
+  cep                String               @db.VarChar(10)
+  street             String               @db.VarChar(100)
+  District           DistrictModel        @relation(fields: [districtId], references: [districtId])
+  districtId         String               @map("district_id")
+  StoreAddressModel  StoreAddressModel[]
+  ClientAddressModel ClientAddressModel[]
+}
+
+model UserModel {
+  userId     String       @id @default(uuid()) @map("user_id")
+  email      String       @unique @db.VarChar(100)
+  name       String       @db.VarChar(100)
+  password   String       @db.VarChar(100)
+  cpf        String       @unique @db.VarChar(20)
+  role       String       @default("user") @db.VarChar(10)
+  phone      String       @db.VarChar(20)
+  active     Boolean      @default(true)
+  createdAt  DateTime     @default(now()) @map("created_at")
+  lastLogin  DateTime     @map("last_login")
+  StoreModel StoreModel[]
+}
+
+model CategoryModel {
+  categoryId String         @id @default(uuid()) @map("category_id")
+  name       String         @db.VarChar(100)
+  Product    ProductModel[]
+}
+
+model ProductModel {
+  productId      String              @id @default(uuid()) @map("product_id")
+  name           String              @db.VarChar(100)
+  description    String              @db.VarChar(100)
+  price          Float               @db.DoublePrecision
+  promotionPrice Float               @db.DoublePrecision
+  quantity       Int                 @db.Integer
+  Category       CategoryModel       @relation(fields: [categoryId], references: [categoryId])
+  categoryId     String              @map("category_id")
+  Store          StoreModel          @relation(fields: [storeId], references: [storeId])
+  storeId        String              @map("store_id")
+  image          ProductImageModel[]
+}
+
+model ProductImageModel {
+  id        Int          @id @default(autoincrement())
+  path      String       @db.VarChar(100)
+  filename  String       @db.VarChar(100)
+  Product   ProductModel @relation(fields: [productId], references: [productId])
+  productId String       @map("product_id")
+}
+
+model PaymentModel {
+  paymentId String @id @default(uuid()) @map("payment_id")
+  name      String @unique @db.VarChar(100)
+}
+
+model ClientModel {
+  clientId           String             @id @default(uuid()) @map("client_id")
+  name               String             @db.VarChar(100)
+  email              String             @unique @db.VarChar(100)
+  phone              String             @db.VarChar(20)
+  clientAddressId    String             @map("client_address_id")
+  ClientAddressModel ClientAddressModel @relation(fields: [clientAddressId], references: [clientAddressId])
+}
+
+model ClientAddressModel {
+  clientAddressId String        @id @default(uuid()) @map("client_address_id")
+  complement      String        @db.VarChar(100)
+  number          String        @db.VarChar(4)
+  address         AddressModel  @relation(fields: [addressId], references: [addressId])
+  addressId       String        @map("address_id")
+  ClientModel     ClientModel[]
+}
+
+model StoreModel {
+  storeId           String            @id @default(uuid()) @map("store_id")
+  name              String            @db.VarChar(100)
+  userId            String            @map("user_id")
+  user              UserModel         @relation(fields: [userId], references: [userId])
+  cnpj              String            @unique @db.VarChar(20)
+  phone             String            @db.VarChar(20)
+  active            Boolean           @default(true)
+  storeAddressId    String            @map("store_address_id")
+  StoreAddressModel StoreAddressModel @relation(fields: [storeAddressId], references: [storeAddressId])
+  ProductModel      ProductModel[]
+}
