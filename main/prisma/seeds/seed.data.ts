@@ -1,3 +1,7 @@
+import bcrypt from 'bcrypt';
+
+const salt = bcrypt.genSaltSync(10);
+
 export const states = [
   {
     stateId: '07e39ce9-ab9a-4a0f-84d4-34a08986411d',
@@ -48,7 +52,7 @@ export const users = [
     cpf: '457.400.680-37',
     name: 'americanas',
     email: 'ame@mail.com',
-    password: '123Abcd##!',
+    password: bcrypt.hashSync('123Abcd##!', salt), // 123Abcd##!
     phone: '128888877777',
     active: true,
     createdAt: new Date(),
@@ -60,7 +64,7 @@ export const users = [
     cpf: '131.267.870-45',
     name: 'Empresa Teste',
     email: 'empresa@mail.com',
-    password: '123Abcd##!',
+    password: bcrypt.hashSync('123Abcd##!', salt), // 123Abcd##!
     phone: '12999999999',
     active: true,
     createdAt: new Date(),
@@ -174,5 +178,30 @@ export const categories = [
   {
     categoryId: '5144256d-2f11-4af3-a0bf-f1d7ba3c5465',
     name: 'Esfiha'
+  }
+];
+
+export const stores = [
+  {
+    storeId: 'b2810065-bd1d-4a10-a8df-f5cd7f798683',
+    name: 'Pizzaria do João',
+    userId: 'c70d9017-0518-47c3-a2db-c4cbc545c126',
+    cnpj: '43.682.932/0001-74',
+    phone: '12999999999',
+    active: true,
+    storeAddressId: '614f7214-ddb9-4859-88d0-ffbd113bf6ea',
+  }
+];
+
+export const products = [
+  {
+    productId: 'a014dcb7-a36d-4376-97d2-f319fe14690e',
+    name: 'Pizza de Calabresa',
+    description: 'Pizza de Calabresa com cebola e azeitona com molho da casa',
+    price: 40.00,
+    promotionPrice: 40.00,
+    quantity: 50,
+    categoryId: '3cb5ea67-66a5-49c0-a2a2-a86c8c2b9b37',
+    storeId: 'b2810065-bd1d-4a10-a8df-f5cd7f798683'
   }
 ];
