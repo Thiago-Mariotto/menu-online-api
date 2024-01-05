@@ -8,3 +8,8 @@ class ProductModel(BaseModel):
   quantity: int
   promotionPrice: float
   categoryId: str
+
+class ProductFromSale(BaseModel):
+  product_id: None | str = None
+  price: float
+  quantity: int
