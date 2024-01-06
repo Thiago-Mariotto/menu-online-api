@@ -29,11 +29,25 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - ./api_gateway/:/app
+      - ./api_gateway/:/app  
     depends_on:
-      - main
       - kafka
-
+  
+  orders_pubsub:
+    container_name: orders_pubsub
+    build:
+      context: ./orders_pubsub
+      dockerfile: Dockerfile
+    environment:
+      - KAFKA_HOST=kafka:29092
+      - DB_HOST=database
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./orders_pubsub/:/app  
+    depends_on:
+      - kafka
+  
   database:
     image: postgres:12.2-alpine
     environment:

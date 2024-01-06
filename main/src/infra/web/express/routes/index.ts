@@ -9,6 +9,12 @@ import productRouter from './product.route';
 const router = Router();
 
 // router.use('/addresses', addressRouter);
+router.get('/health', (_req, res) => {
+  res.status(200).json({
+    message: 'OK',
+  });
+});
+
 router.use('/users', userRouter);
 router.use('/clients', clientRouter);
 router.use('/categories', categoryRouter);

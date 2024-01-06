@@ -1,12 +1,12 @@
 import psycopg2
+from ..config.vars import ENV
 
 def create_connection():
     return psycopg2.connect(
-        host="localhost",
+        host=ENV['db_host'],
         database="menu_online",
         user="postgres",
-        password="password",
-        port="5432",
+        password="password"
         )
 
 def close_connection(connection):
