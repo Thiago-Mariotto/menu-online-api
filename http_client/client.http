@@ -1,3 +1,32 @@
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "name": "Rafa Tedesco",
+    "email": "tedesco@mail.com",
+    "password": "1234Abc##",
+    "cpf": "74282559020",
+    "phone": "1298721723"
+}
+
+###
+
+POST http://localhost:3001/api/users/login
+Content-Type: application/json
+
+{
+	"email": "tedesco@mail.com",
+	"password": "1234Abc##"
+}
+
+###
+
+GET http://localhost:3001/api/stores/b2810065-bd1d-4a10-a8df-f5cd7f798683
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4NDczMWExLWFiNDktNDQ4YS04MDc2LThhYWEzMDg1NjgzMSIsInJvbGUiOiJ1c2VyIiwibmFtZSI6IlJhZmEgVGVkZXNjbyIsImlhdCI6MTcwNDU1MDA2NywiZXhwIjoxNzA0NjM2NDY3fQ.7TicNnUuq2dyXTkJtUh2TAe5od98o5Ufn0dC9JSHgfw
+
+###
+
 GET http://localhost:3001/api/products
 
 ###

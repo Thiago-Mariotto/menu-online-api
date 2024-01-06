@@ -1,10 +1,12 @@
 from fastapi import APIRouter
 from ..models import OrderModel
 from ..message_broker.producers import msg_sender
+from ..config.vars import ENV
 import requests
 import json
 
 router = APIRouter()
+host = ENV['core_host']
 
 @router.post('/orders/{store_id}')
 async def create_order(order: OrderModel, store_id: str):
@@ -12,7 +14,8 @@ async def create_order(order: OrderModel, store_id: str):
 
   for product in data['products']:
     productId = product['product_id']
-    findedProduct = requests.get(f"http://localhost:3001/api/products/{productId}")
+    api = f"http://{host}/api/products/{productId}"
+    findedProduct = requests.get(api)
     if not findedProduct:
       return { 'message': f'Produto {product["product_id"]} não encontrado' }
     
@@ -21,6 +24,7 @@ async def create_order(order: OrderModel, store_id: str):
       return { 'message': f'Quantidade insuficiente do produto {parsedProduct["name"]} no estoque' }
 
   msg_sender.produce('orders', key='newOrder', value=json.dumps(data).encode('utf-8'))
+  msg_sender.flush()
   
   # valida estoque na api CORE (implementar cache se api off)
   # product = getProductRespose.json()

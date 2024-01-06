@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   main:
+    container_name: main
     build:
       context: ./main
       dockerfile: Dockerfile
@@ -13,6 +14,25 @@ services:
       - 3001:3001
     volumes:
       - ./main/:/app
+    depends_on:
+      - database
+  api_gateway:
+    container_name: api_gateway
+    build:
+      context: ./api_gateway
+      dockerfile: Dockerfile
+    ports:
+      - 3333:3333
+    environment:
+      - KAFKA_HOST=kafka:29092
+      - CORE_HOST=main:3001
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./api_gateway/:/app
+    depends_on:
+      - main
+      - kafka
 
   database:
     image: postgres:12.2-alpine

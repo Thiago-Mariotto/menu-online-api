@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from src.routers import products
 from src.routers import orders
-from src.message_broker.producers import msg_sender
-import json
 
 app = FastAPI()
 
