@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import IHash from '../IHash';
 
 export default class Bcrypt implements IHash {
