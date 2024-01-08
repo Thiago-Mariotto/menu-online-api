@@ -3,7 +3,11 @@ import { TProductCreated } from '../../../types/Product';
 import { IProductRepository } from '../IProductRepository';
 
 export class ProductMemoryRepository implements IProductRepository {
-  
+
+  setProductQuantity(productId: string, quantity: number): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
   private products: TProductCreated[] = [];
 
   async save(product: Product): Promise<TProductCreated> {

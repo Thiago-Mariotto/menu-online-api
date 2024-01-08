@@ -1,16 +1,24 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { DefaultArgs } from '@prisma/client/runtime/library';
-import { IProductRepository } from '../IProductRepository';
-import { TProductCreated } from '../../../types/Product';
 import { Product } from '../../../entities/Product';
+import { TProductCreated } from '../../../types/Product';
+import ConnectionPrismaAdapter from '../../connection/adapters/ConnectionPrismaAdapter';
+import { IProductRepository } from '../IProductRepository';
 
 export default class ProductPrismaRepository implements IProductRepository {
   private _prisma: PrismaClient;
   private _productModel: Prisma.ProductModelDelegate<DefaultArgs>;
 
   constructor() {
-    this._prisma = new PrismaClient();
+    this._prisma = new ConnectionPrismaAdapter().getConnection();
     this._productModel = this._prisma.productModel;
+  }
+
+  async setProductQuantity(productId: string, quantity: number): Promise<void> {
+    await this._productModel.update({
+      where: { productId },
+      data: { quantity }
+    });
   }
 
   public async getAll(): Promise<TProductCreated[]> {
