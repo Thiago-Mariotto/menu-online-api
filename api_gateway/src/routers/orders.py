@@ -8,8 +8,8 @@ import json
 router = APIRouter()
 host = ENV['core_host']
 
-@router.post('/orders/{store_id}')
-async def create_order(order: OrderModel, store_id: str):
+@router.post('/orders')
+async def create_order(order: OrderModel):
   data = order.model_dump()
 
   for product in data['products']:

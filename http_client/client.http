@@ -1,3 +1,22 @@
+POST http://localhost:3333/orders
+Content-Type: application/json
+
+{
+  "total": 20,
+  "products": [
+    {
+      "product_id": "a014dcb7-a36d-4376-97d2-f319fe14690e",
+      "price": 10,
+      "quantity": 2
+    }
+  ],
+  "coupon_id": "",
+  "store_id": "b2810065-bd1d-4a10-a8df-f5cd7f798683",
+  "payment_method": "eced01fb-3db6-4e9a-be81-1969609fe060"
+}
+
+###
+
 POST http://localhost:3001/api/users
 Content-Type: application/json
 

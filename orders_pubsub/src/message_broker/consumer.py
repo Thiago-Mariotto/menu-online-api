@@ -28,11 +28,10 @@ def consume():
 
         if msg.error():
             if msg.error().code() == KafkaError._PARTITION_EOF:
-                # End of partition event
                 sys.stderr.write('%% %s [%d] reached end at offset %d\n' %
                                   (msg.topic(), msg.partition(), msg.offset()))
             elif msg.error():
-                raise KafkaException(msg.error())
+                raise KafkaException(msg.error(), "caiu na kafka exception")
         else:
             msg_process(msg)
   finally:
