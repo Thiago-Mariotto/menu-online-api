@@ -4,14 +4,14 @@ import app from './app';
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
-  pubSubEventManager.emit('start-consumer', ['orders']);
+  pubSubEventManager.emit('start-consumer', ['newOrder']);
   console.log(`Server is running on port ${PORT}`);
 });
 
-process.on('SIGTERM', () => { 
+process.on('SIGTERM', () => {
   stopConsumer();
 });
 
-process.on('SIGINT', () => { 
+process.on('SIGINT', () => {
   stopConsumer();
 });

@@ -20,7 +20,7 @@ def msg_process(msg):
    
 def consume():
   try:
-    consumer = create_consumer(conf, ['orders'])
+    consumer = create_consumer(conf, ['newOrder'])
 
     while True:
         msg = consumer.poll(timeout=1.0)

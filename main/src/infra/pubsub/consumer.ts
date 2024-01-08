@@ -26,9 +26,10 @@ pubSubEventManager.on('start-consumer', (topics: string[]) => {
 });
 
 const handleMessage = async (data: any): Promise<void> => {
+  console.log(data);
   if (!data.value) return;
   switch (data.topic) {
-    case 'orders': {
+    case 'newOrder': {
       const parsedData = JSON.parse(data.value.toString());
       await updateProduct(parsedData.products);
       break;
@@ -48,6 +49,8 @@ const updateProduct = async (products: ProductDTO[]) => {
   const findedProducts = products.map((product: ProductDTO) => {
     return prodPrismaRepo.getById(product.product_id);
   });
+
+  /// REDUZIR TAMBÉM DO CACHE ?
 
   const productsToUpdate = await Promise.all(findedProducts);
 
