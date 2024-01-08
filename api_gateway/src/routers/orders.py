@@ -2,8 +2,7 @@ from fastapi import APIRouter
 from ..models import OrderModel
 from ..message_broker.producers import msg_sender
 from ..config.vars import ENV
-import requests
-import json
+import requests, json, redis
 
 router = APIRouter()
 host = ENV['core_host']
@@ -15,7 +14,28 @@ async def create_order(order: OrderModel):
   for product in data['products']:
     productId = product['product_id']
     api = f"http://{host}/api/products/{productId}"
-    findedProduct = requests.get(api)
+
+  try:
+    response = requests.get(api)
+    response.raise_for_status()
+    print(response.json())
+  
+  except requests.HTTPError as e:
+    print('HTTP Error: buscando dados no cache')
+    r = redis.Redis(host='redis', port=6379, decode_responses=True)
+    print('BUSCANDO DADOS DO REDIS', r)
+    return { 'message': 'Erro ao conectar com a API' }
+  
+  except requests.ConnectionError as e:
+    print('Connection Error: buscando dados no cache ')
+    r = redis.Redis(host='redis', port=6379, decode_responses=True)
+    return { 'message': 'A API está fora do ar ou ocorreu um erro de rede' }
+  
+  except requests.Timeout as e:
+    print('Timeout: buscando dados no cache')
+    r = redis.Redis(host='redis', port=6379, decode_responses=True)
+    return { 'message': 'Timeout ao conectar com a API' }
+
     if not findedProduct:
       return { 'message': f'Produto {product["product_id"]} não encontrado' }
     
