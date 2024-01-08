@@ -16,6 +16,7 @@ services:
       - ./main/src:/app/src
     depends_on:
       - database
+      - redis
 
   api_gateway:
     container_name: api_gateway
@@ -108,6 +109,13 @@ services:
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
+    
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    
 
 volumes:
   zookeeper-data:
