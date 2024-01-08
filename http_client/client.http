@@ -2,12 +2,12 @@ POST http://localhost:3333/orders
 Content-Type: application/json
 
 {
-  "total": 20,
+  "total": 60,
   "products": [
     {
       "product_id": "a014dcb7-a36d-4376-97d2-f319fe14690e",
-      "price": 10,
-      "quantity": 2
+      "price": 20,
+      "quantity": 3
     }
   ],
   "coupon_id": "",

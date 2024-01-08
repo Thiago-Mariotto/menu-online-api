@@ -11,8 +11,9 @@ services:
     stdin_open: true
     ports:
       - 3001:3001
+    working_dir: /app
     volumes:
-      - ./main/:/app
+      - ./main/src:/app/src
     depends_on:
       - database
 
