@@ -4,8 +4,7 @@ services:
   main:
     container_name: main
     build:
-      context: ./main
-      dockerfile: Dockerfile
+      context: ./main/.
     env_file:
       - ./main/.env
     tty: true
@@ -16,6 +15,7 @@ services:
       - ./main/:/app
     depends_on:
       - database
+
   api_gateway:
     container_name: api_gateway
     build:
@@ -29,10 +29,10 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - ./api_gateway/:/app  
+      - ./api_gateway/:/app
     depends_on:
       - kafka
-  
+
   orders_pubsub:
     container_name: orders_pubsub
     build:
@@ -44,10 +44,10 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - ./orders_pubsub/:/app  
+      - ./orders_pubsub/:/app
     depends_on:
       - kafka
-  
+
   database:
     image: postgres:12.2-alpine
     environment:
@@ -86,7 +86,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
-      CONFLUENT_METRICS_ENABLE: 'false'
+      CONFLUENT_METRICS_ENABLE: "false"
     ports:
       - "9092:9092"
     volumes:
