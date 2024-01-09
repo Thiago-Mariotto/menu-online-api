@@ -11,7 +11,6 @@ def register_order(order):
     (order_id, total, payment_id, store_id)
     VALUES ('{id}', '{order['total']}', '{order['payment_method']}', 
    '{order['store_id']}')"""
-        print(query)
         execute_query(connection, query)
         connection.commit()
         print("registrado com sucesso!")
