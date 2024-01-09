@@ -54,8 +54,9 @@ def callToCoreAPI(data):
       return { 'message': f'Produto {product["product_id"]} não encontrado' }
     
     if parsedProduct['quantity'] < product['quantity']:
-      return { 'message': f'Quantidade insuficiente do produto {parsedProduct["name"]} no estoque' } 
-    
+      return { 'message': f'Quantidade insuficiente do produto {parsedProduct["name"]} no estoque' }
+     
+    setProductById(productId, parsedProduct['quantity'] - product['quantity'], getRedisConnection())
     print('Continuando com mensagens para fila')
     return { 'product_id': productId, 'quantity': product['quantity'] }
 
