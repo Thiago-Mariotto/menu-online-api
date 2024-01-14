@@ -59,16 +59,6 @@ Todos os endpoints referentes a usuários, está listado a baixo, para mais deta
 
 ---
 
-### 🛒 Pedidos
-
-- POST `/api/orders/store/:storeId` - Cria um novo pedido de uma loja [veja mais](./orders.md#post-apiordersstorestoreid) ❌
-- GET `/api/orders/store/:storeId` - Lista todos os pedidos de uma loja [veja mais](./orders.md#get-apiordersstorestoreid) ❌
-- GET `/api/orders/:orderId/store/:storeId` - Lista um pedido específico de uma loja [veja mais](./orders.md#get-apiordersorderidstorestoreid) ❌
-- PUT `/api/orders/:orderId/store/:storeId` - Atualiza um pedido específico de uma loja [veja mais](./orders.md#put-apiordersorderidstorestoreid) ❌
-- DELETE `/api/orders/:orderId` - Remove um pedido específico [veja mais](./orders.md#delete-apiordersorderid) ❌
-
----
-
 ### 🏠 Endereços
 
 - GET `/api/addresses/states` - Lista uma cidade específica [veja mais](./addresses.md#get-apiaddressesstates) ❌
